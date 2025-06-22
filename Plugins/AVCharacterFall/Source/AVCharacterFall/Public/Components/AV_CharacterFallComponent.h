@@ -17,6 +17,8 @@ USTRUCT()
 struct AVCHARACTERFALL_API FAV_FallingConditionAndTasks
 {
 	GENERATED_BODY()
+
+	EAV_FallRangeState State = EAV_FallRangeState::Outside;
 	
 	UPROPERTY(EditDefaultsOnly, Category = "")
 	FAV_FallRange FallRange;
@@ -31,7 +33,7 @@ struct AVCHARACTERFALL_API FAV_FallingConditionAndTasks
 	TArray<TObjectPtr<UAV_FallingTaskBase>> FallingExitTasks;
 };
 
-UCLASS(MinimalAPI)
+UCLASS(MinimalAPI, Meta=(BlueprintSpawnableComponent))
 class UAV_CharacterFallComponent : public UActorComponent
 {
 	GENERATED_BODY()

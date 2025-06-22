@@ -40,25 +40,22 @@ void UAV_CharacterFallComponent::Landed(const FHitResult& Hit)
 		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Green, FString::Printf(TEXT("Landed with Fall Height: %f"), FallHeight));
 	}
 
+	FAV_FallRangeContext FallRangeContext;
+	FallRangeContext.Character = OwnerCharacter;
+	FallRangeContext.FallHeight = FallHeight;
+	
 	for (FAV_FallingConditionAndTasks ConditionToTasks : ConditionsToTasks)
 	{
-		// TODO: Consolidate this...
-		FAV_FallRangeContext FallRangeContext;
-		FallRangeContext.Character = OwnerCharacter;
-		FallRangeContext.FallHeight = FallHeight;
-		const EAV_FallRangeState FallRangeState = ConditionToTasks.FallRange.TestRange(FallRangeContext);
-
-		// TODO: Maybe extract to methods "Inside" and "Outside"?
-		if (FallRangeState == EAV_FallRangeState::Entered || FallRangeState == EAV_FallRangeState::Inside)
+		if (ConditionToTasks.FallRange.TestRange(FallRangeContext))
 		{
+			FAV_LandedTaskContext TaskContext;
+			TaskContext.Character = OwnerCharacter;
+			TaskContext.HitActor = Hit.GetActor();
+			TaskContext.FallHeight = FallHeight;
+			TaskContext.FallingComponent = this;
+			
 			for (const UAV_LandedTaskBase* Task : ConditionToTasks.LandedTasks)
 			{
-				FAV_LandedTaskContext TaskContext;
-				TaskContext.Character = OwnerCharacter;
-				TaskContext.HitActor = Hit.GetActor();
-				TaskContext.FallHeight = FallHeight;
-				TaskContext.FallingComponent = this;
-				
 				Task->ExecuteTask(TaskContext);
 			}
 		}
@@ -76,37 +73,41 @@ void UAV_CharacterFallComponent::TickComponent(float DeltaTime, ELevelTick TickT
 	{
 		FallHeight = FallBeginZ - GetOwner()->GetActorLocation().Z;
 
+		FAV_FallRangeContext FallRangeContext;
+		FallRangeContext.Character = OwnerCharacter;
+		FallRangeContext.FallHeight = FallHeight;
+
 		// Use reference here because we change the struct's state
 		for (FAV_FallingConditionAndTasks& ConditionToTasks : ConditionsToTasks)
 		{
-			// TODO: Consolidate this...
-			FAV_FallRangeContext FallRangeContext;
-			FallRangeContext.Character = OwnerCharacter;
-			FallRangeContext.FallHeight = FallHeight;
-			const EAV_FallRangeState FallRangeState = ConditionToTasks.FallRange.TestRange(FallRangeContext);
+			const bool bConditionMet = ConditionToTasks.FallRange.TestRange(FallRangeContext);
 
-			switch (FallRangeState)
+			switch (ConditionToTasks.State)
 			{
-			case EAV_FallRangeState::Exited:
-				// TODO: Consolidate those somehow...
-				for (const UAV_FallingTaskBase* Task : ConditionToTasks.FallingEnterTasks)
+			case EAV_FallRangeState::Outside:
+				if (bConditionMet)
 				{
+					ConditionToTasks.State = EAV_FallRangeState::Inside;
 					FAV_FallingTaskContext TaskContext;
 					TaskContext.Character = OwnerCharacter;
 					TaskContext.FallingComponent = this;
-			
-					Task->ExecuteTask(TaskContext);
+					for (const UAV_FallingTaskBase* Task : ConditionToTasks.FallingEnterTasks)
+					{
+						Task->ExecuteTask(TaskContext);
+					}
 				}
 				break;
-			case EAV_FallRangeState::Entered:
-				// TODO: Consolidate those somehow...
-				for (const UAV_FallingTaskBase* Task : ConditionToTasks.FallingExitTasks)
+			case EAV_FallRangeState::Inside:
+				if (!bConditionMet)
 				{
+					ConditionToTasks.State = EAV_FallRangeState::Outside;
 					FAV_FallingTaskContext TaskContext;
 					TaskContext.Character = OwnerCharacter;
 					TaskContext.FallingComponent = this;
-			
-					Task->ExecuteTask(TaskContext);
+					for (const UAV_FallingTaskBase* Task : ConditionToTasks.FallingExitTasks)
+					{
+						Task->ExecuteTask(TaskContext);
+					}
 				}
 				break;
 			AV_DEFAULT_CHECKNOENTRY
@@ -118,15 +119,9 @@ void UAV_CharacterFallComponent::TickComponent(float DeltaTime, ELevelTick TickT
 		// Use reference here because we change the struct's state
 		for (FAV_FallingConditionAndTasks& ConditionToTasks : ConditionsToTasks)
 		{
-			// TODO: Consolidate this...
-			FAV_FallRangeContext FallRangeContext;
-			FallRangeContext.Character = OwnerCharacter;
-			FallRangeContext.FallHeight = FallHeight;
-			const EAV_FallRangeState FallRangeState = ConditionToTasks.FallRange.TestRange(FallRangeContext);
-			
-			if (FallRangeState == EAV_FallRangeState::Exited)
+			if (ConditionToTasks.State == EAV_FallRangeState::Inside)
 			{
-				// TODO: Consolidate those somehow...
+				ConditionToTasks.State = EAV_FallRangeState::Outside;
 				for (const UAV_FallingTaskBase* Task : ConditionToTasks.FallingExitTasks)
 				{
 					FAV_FallingTaskContext TaskContext;
