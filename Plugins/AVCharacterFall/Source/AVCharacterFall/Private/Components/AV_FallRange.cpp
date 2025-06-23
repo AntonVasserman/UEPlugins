@@ -3,10 +3,6 @@
 
 #include "Components/AV_FallRange.h"
 
-#include "AVMacros.h"
-#include "GameFramework/Character.h"
-#include "GameFramework/PawnMovementComponent.h"
-
 bool FAV_FallRange::TestRange(const FAV_FallRangeContext& ConditionContext) const
 {
 	switch (ThresholdType)
@@ -17,8 +13,8 @@ bool FAV_FallRange::TestRange(const FAV_FallRangeContext& ConditionContext) cons
 		return ConditionContext.FallHeight >= FallHeightThresholdMin && ConditionContext.FallHeight <= FallHeightThresholdMax;
 	case EAV_FallRangeThresholdType::GreaterThan:
 		return ConditionContext.FallHeight > FallHeightThreshold;
-	AV_DEFAULT_CHECKNOENTRY
+	default:
+		checkNoEntry();
+		return false;
 	}
-
-	return false;
 }

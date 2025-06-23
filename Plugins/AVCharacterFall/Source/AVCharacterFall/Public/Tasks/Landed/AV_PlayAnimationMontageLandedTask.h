@@ -6,7 +6,7 @@
 #include "AV_LandedTaskBase.h"
 #include "AV_PlayAnimationMontageLandedTask.generated.h"
 
-UCLASS(EditInlineNew, Meta = (DisplayName = "Play Animation Montage"))
+UCLASS(Category = "Character Fall|Tasks|Landed", Meta = (DisplayName = "Play Animation Montage"))
 class AVCHARACTERFALL_API UAV_PlayAnimationMontageLandedTask : public UAV_LandedTaskBase
 {
 	GENERATED_BODY()

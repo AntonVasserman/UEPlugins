@@ -7,7 +7,7 @@
 #include "Operations/AV_AddDebugMessageOperation.h"
 #include "AV_AddDebugMessageFallingTask.generated.h"
 
-UCLASS(EditInlineNew, Meta = (DisplayName = "Add Debug Message"))
+UCLASS(Category = "Character Fall|Tasks|Falling", Meta = (DisplayName = "Add Debug Message"))
 class AVCHARACTERFALL_API UAV_AddDebugMessageFallingTask : public UAV_FallingTaskBase
 {
 	GENERATED_BODY()

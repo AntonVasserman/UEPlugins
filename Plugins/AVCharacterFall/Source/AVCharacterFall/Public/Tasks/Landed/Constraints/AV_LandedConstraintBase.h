@@ -11,20 +11,20 @@ struct AVCHARACTERFALL_API FAV_LandedConstraintContext
 {
 	GENERATED_BODY()
 
-	UPROPERTY(BlueprintReadOnly)
-	TObjectPtr<ACharacter> Character;
+	UPROPERTY(BlueprintReadOnly, Category = "")
+	TObjectPtr<ACharacter> Character = nullptr;
 
-	UPROPERTY(BlueprintReadOnly)
-	TObjectPtr<AActor> HitActor;
+	UPROPERTY(BlueprintReadOnly, Category = "")
+	TObjectPtr<AActor> HitActor = nullptr;
 };
 
-UCLASS(Abstract, Blueprintable, EditInlineNew, Meta = (DisplayName = "Landed Constraint Base"))
+UCLASS(Abstract, Blueprintable, EditInlineNew, Category = "Character Fall|Tasks|Landed|Constraints", Meta = (DisplayName = "Landed Constraint Base"))
 class AVCHARACTERFALL_API UAV_LandedConstraintBase : public UObject
 {
 	GENERATED_BODY()
 
 public:
-	UFUNCTION(BlueprintNativeEvent)
+	UFUNCTION(BlueprintNativeEvent, Category = "Character Fall|Tasks|Landed|Constraints")
 	bool TestConstraint(const FAV_LandedConstraintContext& ConstraintContext) const;
 	virtual bool TestConstraint_Implementation(const FAV_LandedConstraintContext& ConstraintContext) const { return false; }
 };

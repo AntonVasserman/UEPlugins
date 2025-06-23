@@ -6,7 +6,7 @@
 #include "UObject/Object.h"
 #include "AV_FallRange.generated.h"
 
-UENUM(Blueprintable)
+UENUM(BlueprintType)
 enum class EAV_FallRangeThresholdType : uint8
 {
 	LessThan			UMETA(DisplayName = "Less Than", Description = "Fall Height must be less than the specified value"),
@@ -26,29 +26,29 @@ struct AVCHARACTERFALL_API FAV_FallRangeContext
 {
 	GENERATED_BODY()
 
-	UPROPERTY(BlueprintReadOnly)
-	TObjectPtr<ACharacter> Character;
+	UPROPERTY(BlueprintReadOnly, Category = "")
+	TObjectPtr<ACharacter> Character = nullptr;
 
-	UPROPERTY(BlueprintReadOnly)
+	UPROPERTY(BlueprintReadOnly, Category = "")
 	float FallHeight = 0.f;
 };
 
-USTRUCT(Blueprintable, Meta = (DisplayName = "Fall Range"))
+USTRUCT(BlueprintType)
 struct AVCHARACTERFALL_API FAV_FallRange
 {
 	GENERATED_BODY()
 	
-	UPROPERTY(EditDefaultsOnly, Category = "", Meta = (AllowPrivateAccess = "true"))
+	UPROPERTY(EditDefaultsOnly, Category = "")
 	EAV_FallRangeThresholdType ThresholdType = EAV_FallRangeThresholdType::LessThan;
 	
-	UPROPERTY(EditDefaultsOnly, Category = "", Meta = (AllowPrivateAccess = "true", EditCondition = "ThresholdType != EAV_FallRangeThresholdType::InRange", EditConditionHides))
-	float FallHeightThreshold;
+	UPROPERTY(EditDefaultsOnly, Category = "", Meta = (EditCondition = "ThresholdType != EAV_FallRangeThresholdType::InRange", EditConditionHides))
+	float FallHeightThreshold = 0.f;
 
-	UPROPERTY(EditDefaultsOnly, Category = "", Meta = (AllowPrivateAccess = "true", EditCondition = "ThresholdType == EAV_FallRangeThresholdType::InRange", EditConditionHides))
-	float FallHeightThresholdMin;
+	UPROPERTY(EditDefaultsOnly, Category = "", Meta = (EditCondition = "ThresholdType == EAV_FallRangeThresholdType::InRange", EditConditionHides))
+	float FallHeightThresholdMin = 0.f;
 
-	UPROPERTY(EditDefaultsOnly, Category = "", Meta = (AllowPrivateAccess = "true", EditCondition = "ThresholdType == EAV_FallRangeThresholdType::InRange", EditConditionHides))
-	float FallHeightThresholdMax;
+	UPROPERTY(EditDefaultsOnly, Category = "", Meta = (EditCondition = "ThresholdType == EAV_FallRangeThresholdType::InRange", EditConditionHides))
+	float FallHeightThresholdMax = 0.f;
 
 	bool TestRange(const FAV_FallRangeContext& ConditionContext) const;
 };

@@ -7,7 +7,12 @@
 void FAVCharacterFallModule::StartupModule()
 {
 	// This code will execute after your module is loaded into memory; the exact timing is specified in the .uplugin file per-module
+	
 	// TODO: Add logic here to change FallComponent Icon
+	/*
+	 * references:
+	 * https://www.quodsoler.com/blog/customize-your-unreal-class-icons
+	 */
 }
 
 void FAVCharacterFallModule::ShutdownModule()

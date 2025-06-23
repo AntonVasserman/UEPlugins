@@ -3,7 +3,6 @@
 
 #include "Components/AV_CharacterFallComponent.h"
 
-#include "AVMacros.h"
 #include "GameFramework/Character.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "Tasks/Falling/AV_FallingTaskBase.h"
@@ -110,7 +109,8 @@ void UAV_CharacterFallComponent::TickComponent(float DeltaTime, ELevelTick TickT
 					}
 				}
 				break;
-			AV_DEFAULT_CHECKNOENTRY
+			default:
+				checkNoEntry();
 			}
 		}
 	}

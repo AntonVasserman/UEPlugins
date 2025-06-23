@@ -14,20 +14,20 @@ struct AVCHARACTERFALL_API FAV_LandedTaskContext
 {
 	GENERATED_BODY()
 
-	UPROPERTY(BlueprintReadOnly)
+	UPROPERTY(BlueprintReadOnly, Category = "")
 	TObjectPtr<ACharacter> Character;
 	
-	UPROPERTY(BlueprintReadOnly)
+	UPROPERTY(BlueprintReadOnly, Category = "")
 	TObjectPtr<AActor> HitActor;
 	
-	UPROPERTY(BlueprintReadOnly)
+	UPROPERTY(BlueprintReadOnly, Category = "")
 	float FallHeight = 0.f;
 
-	UPROPERTY(BlueprintReadOnly)
+	UPROPERTY(BlueprintReadOnly, Category = "")
 	TObjectPtr<UAV_CharacterFallComponent> FallingComponent;
 };
 
-UCLASS(Abstract, Blueprintable, EditInlineNew, Meta = (DisplayName = "Landed Task Base"))
+UCLASS(Abstract, Blueprintable, EditInlineNew, Category = "Character Fall|Tasks|Landed", Meta = (DisplayName = "Landed Task Base"))
 class AVCHARACTERFALL_API UAV_LandedTaskBase : public UObject
 {
 	GENERATED_BODY()
@@ -35,15 +35,15 @@ class AVCHARACTERFALL_API UAV_LandedTaskBase : public UObject
 	UPROPERTY(EditDefaultsOnly, Category = "")
 	uint8 bHasConstraint:1 = false;
 
-	UPROPERTY(EditDefaultsOnly, Category = "", Instanced, Meta = (BaseClass = UAV_LandedConstraintBase, EditCondition = "bHasConstraint == true", EditConditionHides))
+	UPROPERTY(EditDefaultsOnly, Instanced, Category = "", Meta = (BaseClass = UAV_LandedConstraintBase, EditCondition = "bHasConstraint == true", EditConditionHides))
 	TArray<TObjectPtr<UAV_LandedConstraintBase>> Constraints;
 	
 public:
-	UFUNCTION(BlueprintCallable)
+	UFUNCTION(BlueprintCallable, Category = "Character Fall|Tasks|Landed")
 	void ExecuteTask(const FAV_LandedTaskContext& TaskContext) const;
 
 protected:
-	UFUNCTION(BlueprintNativeEvent)
+	UFUNCTION(BlueprintNativeEvent, Category = "Character Fall|Tasks|Landed")
 	void ExecuteTaskInternal(const FAV_LandedTaskContext& TaskContext) const;
 	virtual void ExecuteTaskInternal_Implementation(const FAV_LandedTaskContext& TaskContext) const {}
 };

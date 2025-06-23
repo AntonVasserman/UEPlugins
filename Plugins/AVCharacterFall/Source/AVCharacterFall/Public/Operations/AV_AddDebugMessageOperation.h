@@ -24,7 +24,7 @@ struct AVCHARACTERFALL_API FAV_AddDebugMessageOperation
 	FColor MessageColor;
 
 	UPROPERTY(EditDefaultsOnly, Category = "", Meta = (EditCondition = "bOnScreen", EditConditionHides))
-	float Duration;
+	float Duration = 5.f;
 
 	void Execute() const;
 };

@@ -6,13 +6,13 @@
 #include "AV_LandedTaskBase.h"
 #include "AV_PlayForceFeedbackLandedTask.generated.h"
 
-UCLASS(EditInlineNew, Meta = (DisplayName = "Play Force Feedback"))
+UCLASS(Category = "Character Fall|Tasks|Landed", Meta = (DisplayName = "Play Force Feedback"))
 class AVCHARACTERFALL_API UAV_PlayForceFeedbackLandedTask : public UAV_LandedTaskBase
 {
 	GENERATED_BODY()
 
 	UPROPERTY(EditDefaultsOnly, Category = "")
-	TObjectPtr<UForceFeedbackEffect> ForceFeedbackEffect;
+	TObjectPtr<UForceFeedbackEffect> ForceFeedbackEffect = nullptr;
 
 	//~ UAV_LandedTaskBase Begin
 protected:
