@@ -3,7 +3,10 @@
 
 #include "Tasks/Landed/AV_PlayAnimationMontageLandedTask.h"
 
+#include "Animation/AnimInstance.h"
+#include "Components/SkeletalMeshComponent.h"
 #include "GameFramework/Character.h"
+
 
 //~ UAV_LandedTaskBase Begin
 

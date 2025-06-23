@@ -6,6 +6,7 @@
 #include "UObject/Object.h"
 #include "AV_FallingTaskBase.generated.h"
 
+class ACharacter;
 class UAV_CharacterFallComponent;
 
 USTRUCT(BlueprintType)

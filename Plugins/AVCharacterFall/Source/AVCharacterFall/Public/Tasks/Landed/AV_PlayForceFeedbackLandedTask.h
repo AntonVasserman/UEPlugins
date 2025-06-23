@@ -6,6 +6,8 @@
 #include "AV_LandedTaskBase.h"
 #include "AV_PlayForceFeedbackLandedTask.generated.h"
 
+class UForceFeedbackEffect;
+
 UCLASS(Category = "Character Fall|Tasks|Landed", Meta = (DisplayName = "Play Force Feedback"))
 class AVCHARACTERFALL_API UAV_PlayForceFeedbackLandedTask : public UAV_LandedTaskBase
 {

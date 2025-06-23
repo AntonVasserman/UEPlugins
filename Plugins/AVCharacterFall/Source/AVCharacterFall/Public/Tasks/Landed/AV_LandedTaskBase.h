@@ -6,6 +6,8 @@
 #include "UObject/Object.h"
 #include "AV_LandedTaskBase.generated.h"
 
+class AActor;
+class ACharacter;
 class UAV_CharacterFallComponent;
 class UAV_LandedConstraintBase;
 

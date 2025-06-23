@@ -4,6 +4,7 @@
 
 #include "Components/AV_CharacterFallComponent.h"
 #include "GameFramework/Character.h"
+#include "GameFramework/PlayerController.h"
 
 //~ UAV_LandedTaskBase Begin
 

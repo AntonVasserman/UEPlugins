@@ -23,13 +23,13 @@ struct AVCHARACTERFALL_API FAV_FallingConditionAndTasks
 	UPROPERTY(EditDefaultsOnly, Category = "")
 	FAV_FallRange FallRange;
 
-	UPROPERTY(EditDefaultsOnly, Category = "", Meta = (BaseClass = UCL_LandedTaskBase), Instanced)
+	UPROPERTY(EditDefaultsOnly, Category = "", Meta = (BaseClass = UAV_LandedTaskBase), Instanced)
 	TArray<TObjectPtr<UAV_LandedTaskBase>> LandedTasks;
 
-	UPROPERTY(EditDefaultsOnly, Category = "", Meta = (BaseClass = UCL_FallingTaskBase), Instanced)
+	UPROPERTY(EditDefaultsOnly, Category = "", Meta = (BaseClass = UAV_FallingTaskBase), Instanced)
 	TArray<TObjectPtr<UAV_FallingTaskBase>> FallingEnterTasks;
 
-	UPROPERTY(EditDefaultsOnly, Category = "", Meta = (BaseClass = UCL_FallingTaskBase), Instanced)
+	UPROPERTY(EditDefaultsOnly, Category = "", Meta = (BaseClass = UAV_FallingTaskBase), Instanced)
 	TArray<TObjectPtr<UAV_FallingTaskBase>> FallingExitTasks;
 };
 

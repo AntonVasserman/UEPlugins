@@ -6,6 +6,9 @@
 #include "UObject/Object.h"
 #include "AV_LandedConstraintBase.generated.h"
 
+class AActor;
+class ACharacter;
+
 USTRUCT(BlueprintType)
 struct AVCHARACTERFALL_API FAV_LandedConstraintContext
 {

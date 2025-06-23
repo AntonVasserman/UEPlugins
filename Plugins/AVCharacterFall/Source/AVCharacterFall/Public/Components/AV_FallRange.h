@@ -6,6 +6,8 @@
 #include "UObject/Object.h"
 #include "AV_FallRange.generated.h"
 
+class ACharacter;
+
 UENUM(BlueprintType)
 enum class EAV_FallRangeThresholdType : uint8
 {

@@ -3,6 +3,7 @@
 
 #include "Components/AV_CharacterFallComponent.h"
 
+#include "Engine/Engine.h"
 #include "GameFramework/Character.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "Tasks/Falling/AV_FallingTaskBase.h"
