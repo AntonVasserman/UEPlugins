@@ -1,34 +1,14 @@
 ﻿// Copyright Epic Games, Inc. All Rights Reserved.
 
-#include "AVCharacterFallEditor/Public/AVCharacterFallEditor.h"
+#include "AVCharacterFallEditor.h"
 
+#include "PropertyEditorModule.h"
 #include "Components/AV_CharacterFallComponent.h"
 #include "Interfaces/IPluginManager.h"
-#include "Styling/AppStyle.h"
 #include "Styling/SlateStyle.h"
 #include "Styling/SlateStyleRegistry.h"
-#include "Styling/SlateTypes.h"
-#include "Tasks/Falling/AV_AddDebugMessageFallingTask.h"
-#include "Tasks/Falling/AV_AddDebugMessageFallingTaskDetailCustomization.h"
 
 #define LOCTEXT_NAMESPACE "FAVCharacterFallModule"
-
-void FAVCharacterFallEditorModule::RegisterCustomClassLayouts()
-{
-	FPropertyEditorModule& PropertyModule = FModuleManager::LoadModuleChecked<FPropertyEditorModule>("PropertyEditor");
-	UE_LOG(LogAV_CharacterFall, Display, TEXT("Register: %s"), *UAV_AddDebugMessageFallingTask::StaticClass()->GetName())
-	PropertyModule.RegisterCustomClassLayout(
-		*UAV_AddDebugMessageFallingTask::StaticClass()->GetName(),
-		FOnGetDetailCustomizationInstance::CreateStatic(&FAV_AddDebugMessageFallingTaskDetailCustomization::MakeInstance)
-	);
-}
-
-void FAVCharacterFallEditorModule::UnregisterCustomClassLayouts()
-{
-	FPropertyEditorModule& PropertyModule = FModuleManager::LoadModuleChecked<FPropertyEditorModule>("PropertyEditor");
-	PropertyModule.UnregisterCustomClassLayout(*UAV_AddDebugMessageFallingTask::StaticClass()->GetName());
-	UE_LOG(LogAV_CharacterFall, Display, TEXT("Unregister: %s"), *UAV_AddDebugMessageFallingTask::StaticClass()->GetName())
-}
 
 void FAVCharacterFallEditorModule::SetupCustomIcons()
 {
@@ -77,13 +57,11 @@ void FAVCharacterFallEditorModule::SetupCharacterFallComponentIcon(FSlateStyleSe
 
 void FAVCharacterFallEditorModule::StartupModule()
 {
-	RegisterCustomClassLayouts();
 	SetupCustomIcons();
 }
 
 void FAVCharacterFallEditorModule::ShutdownModule()
 {
-	UnregisterCustomClassLayouts();
 }
 
 //~ IModuleInterface End

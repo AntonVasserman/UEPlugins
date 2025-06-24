@@ -2,6 +2,8 @@
 
 #include "AVCharacterFall.h"
 
+#include "Components/AV_CharacterFallComponent.h"
+
 #define LOCTEXT_NAMESPACE "FAVCharacterFallModule"
 
 //~ IModuleInterface Begin
@@ -9,6 +11,7 @@
 void FAVCharacterFallModule::StartupModule()
 {
 	// This code will execute after your module is loaded into memory; the exact timing is specified in the .uplugin file per-module
+	UE_LOG(LogAV_CharacterFall, Display, TEXT("FAVCharacterFallModule: Startup"))
 }
 
 void FAVCharacterFallModule::ShutdownModule()

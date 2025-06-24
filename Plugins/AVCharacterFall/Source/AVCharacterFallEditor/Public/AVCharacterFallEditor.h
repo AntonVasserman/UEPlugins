@@ -4,11 +4,10 @@
 
 #include "Modules/ModuleManager.h"
 
+class FSlateStyleSet;
+
 class FAVCharacterFallEditorModule : public IModuleInterface
 {
-	void RegisterCustomClassLayouts();
-	void UnregisterCustomClassLayouts();
-	
 	void SetupCustomIcons();
 	void SetupCharacterFallComponentIcon(FSlateStyleSet* StyleSet);
 	
