@@ -41,7 +41,11 @@ public class AVCharacterFall : ModuleRules
 				// ... add private dependencies that you statically link with here ...	
 			}
 			);
-		
+
+		if (Target.bBuildEditor)
+		{
+			PrivateDependencyModuleNames.AddRange(new string[] { "Projects" });
+		}
 		
 		DynamicallyLoadedModuleNames.AddRange(
 			new string[]
