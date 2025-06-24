@@ -3,8 +3,15 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "AV_FallRangeThresholdType.h"
 #include "AV_FallRange.generated.h"
+
+UENUM()
+enum class EAV_FallRangeThresholdType : uint8
+{
+	LessThan			UMETA(DisplayName = "Less Than", Description = "Fall Height must be less than the specified value"),
+	InRange				UMETA(DisplayName = "In Range", Description = "Fall Height must be in the specified range"),
+	GreaterThan			UMETA(DisplayName = "Greater Than", Description = "Fall Height must be greater than the specified value"),
+};
 
 USTRUCT()
 struct AVCHARACTERFALL_API FAV_FallRange

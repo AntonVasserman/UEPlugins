@@ -4,7 +4,6 @@
 
 #include "CoreMinimal.h"
 #include "AV_FallRange.h"
-#include "AV_FallRangeState.h"
 #include "UObject/Object.h"
 #include "AV_FallRangeTasks.generated.h"
 
@@ -12,6 +11,13 @@ class ACharacter;
 class UAV_CharacterFallComponent;
 class UAV_LandedTaskBase;
 class UAV_FallingTaskBase;
+
+UENUM()
+enum class EAV_FallRangeState : uint8
+{
+	Outside		UMETA(DisplayName = "Outside", ToolTip = "Outside of the fall range"),
+	Inside		UMETA(DisplayName = "Inside", ToolTip = "Inside of the fall range"),
+};
 
 USTRUCT()
 struct AVCHARACTERFALL_API FAV_FallRangeContext

@@ -2,17 +2,14 @@
 
 #include "Components/Models/AV_FallRangeTasks.h"
 
-#include "Components/Models/AV_FallRangeState.h"
 #include "Tasks/Falling/AV_FallingTaskBase.h"
 #include "Tasks/Landed/AV_LandedTaskBase.h"
 
 EAV_FallRangeState FAV_FallRangeTasks::TestRange(const FAV_FallRangeContext& ConditionContext)
 {
-	const bool bInRange = FallRange.TestRange(ConditionContext.FallHeight);
-	
 	if (ConditionContext.HitActor != nullptr)
 	{
-		if (State != EAV_FallRangeState::Exited && State != EAV_FallRangeState::Outside)
+		if (State == EAV_FallRangeState::Inside)
 		{
 			ExecuteFallingExitTasks(ConditionContext);
 			ExecuteLandedTasks(ConditionContext);
@@ -21,42 +18,21 @@ EAV_FallRangeState FAV_FallRangeTasks::TestRange(const FAV_FallRangeContext& Con
 		State = EAV_FallRangeState::Outside;
 		return State;
 	}
-	
+
+	const bool bInRange = FallRange.TestRange(ConditionContext.FallHeight);
 	switch (State)
 	{
 	case EAV_FallRangeState::Outside:
 		if (bInRange)
 		{
-			State = EAV_FallRangeState::Entered;
 			ExecuteFallingEnterTasks(ConditionContext);
-		}
-		break;
-	case EAV_FallRangeState::Entered:
-		if (!bInRange)
-		{
-			State = EAV_FallRangeState::Exited;
-			ExecuteFallingExitTasks(ConditionContext);
-		}
-		else
-		{
 			State = EAV_FallRangeState::Inside;
 		}
 		break;
 	case EAV_FallRangeState::Inside:
 		if (!bInRange)
 		{
-			State = EAV_FallRangeState::Exited;
 			ExecuteFallingExitTasks(ConditionContext);
-		}
-		break;
-	case EAV_FallRangeState::Exited:
-		if (bInRange)
-		{
-			State = EAV_FallRangeState::Entered;
-			ExecuteFallingEnterTasks(ConditionContext);
-		}
-		else
-		{
 			State = EAV_FallRangeState::Outside;
 		}
 		break;
