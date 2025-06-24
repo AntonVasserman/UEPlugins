@@ -6,11 +6,6 @@
 
 class FAVCharacterFallModule : public IModuleInterface
 {
-#if WITH_EDITOR
-	void SetupCustomIcons();
-	void SetupCharacterFallComponentIcon(FSlateStyleSet* StyleSet);
-#endif
-	
 	//~ IModuleInterface Begin
 public:
 	virtual void StartupModule() override;
