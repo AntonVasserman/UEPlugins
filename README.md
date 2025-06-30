@@ -23,11 +23,12 @@ This Component provides two main functionalities:
 1. Executing certain tasks when entering/exiting certain fall height thresholds.
 2. Executing certain tasks upon landing with from a certain fall height.
 
-Current Version: 1.0
+Current Version: 1.1
 
 <details>
   <summary>Change log</summary>
 
+- 1.1: Updated Fall Height evaluation logic to start evaluating only when falling and descending
 - 1.0: Added the Character Fall Component and its relevant supporting classes
 
 </details>
