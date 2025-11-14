@@ -37,7 +37,7 @@ class AVCHARACTERFALL_API UAV_LandedTaskBase : public UObject
 	UPROPERTY(EditDefaultsOnly, Category = "")
 	uint8 bHasConstraint:1 = false;
 
-	UPROPERTY(EditDefaultsOnly, Instanced, Category = "", Meta = (BaseClass = UAV_LandedConstraintBase, EditCondition = "bHasConstraint == true", EditConditionHides))
+	UPROPERTY(EditDefaultsOnly, Instanced, Category = "", Meta = (BaseClass = "/Script/AVCharacterFall.UAV_LandedConstraintBase", EditCondition = "bHasConstraint == true", EditConditionHides))
 	TArray<TObjectPtr<UAV_LandedConstraintBase>> Constraints;
 	
 public:

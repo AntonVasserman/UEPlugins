@@ -23,11 +23,12 @@ This Component provides two main functionalities:
 1. Executing certain tasks when entering/exiting certain fall height thresholds.
 2. Executing certain tasks upon landing with from a certain fall height.
 
-Current Version: 1.1
+Current Version: 1.2
 
 <details>
   <summary>Change log</summary>
 
+- 1.2: Upgraded to Unreal Engine 5.7.
 - 1.1: Updated Fall Height evaluation logic to start evaluating only when falling and descending
 - 1.0: Added the Character Fall Component and its relevant supporting classes
 
@@ -37,11 +38,12 @@ Current Version: 1.1
 
 This is a plugin containing assets used for Level Prototyping that I use across all my personal projects.
 
-Current Version: 0.4
+Current Version: 0.5
 
 <details>
   <summary>Change log</summary>
 
+- 0.5: Upgraded to Unreal Engine 5.7.
 - 0.4: Added 2 Sample Maps
 - 0.3: Update to Unreal Engine 5.6
 - 0.2: Improved the Teleporter Actor (taking GASP as an example)
@@ -56,11 +58,12 @@ Current Version: 0.4
 
 This is a plugin of a module that contains all my shared code that will be used across all my personal projects.
 
-Current Version: 0.3
+Current Version: 0.4
 
 <details>
   <summary>Change log</summary>
 
+- 0.4: Upgraded to Unreal Engine 5.7.
 - 0.3: Updated class prefixes
 - 0.2: Update to Unreal Engine 5.6
 - 0.1: Initial Release:

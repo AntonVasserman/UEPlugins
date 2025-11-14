@@ -47,13 +47,13 @@ struct AVCHARACTERFALL_API FAV_FallRangeTasks
 	UPROPERTY(EditDefaultsOnly, Category = "")
 	FAV_FallRange FallRange;
 
-	UPROPERTY(EditDefaultsOnly, Category = "", Meta = (BaseClass = UAV_LandedTaskBase), Instanced)
+	UPROPERTY(EditDefaultsOnly, Category = "", Meta = (BaseClass = "/Script/AVCharacterFall.UAV_LandedTaskBase"), Instanced)
 	TArray<TObjectPtr<UAV_LandedTaskBase>> LandedTasks;
-
-	UPROPERTY(EditDefaultsOnly, Category = "", Meta = (BaseClass = UAV_FallingTaskBase), Instanced)
+	
+	UPROPERTY(EditDefaultsOnly, Category = "", Meta = (BaseClass = "/Script/AVCharacterFall.UAV_FallingTaskBase"), Instanced)
 	TArray<TObjectPtr<UAV_FallingTaskBase>> FallingEnterTasks;
-
-	UPROPERTY(EditDefaultsOnly, Category = "", Meta = (BaseClass = UAV_FallingTaskBase), Instanced)
+	
+	UPROPERTY(EditDefaultsOnly, Category = "", Meta = (BaseClass = "/Script/AVCharacterFall.UAV_FallingTaskBase"), Instanced)
 	TArray<TObjectPtr<UAV_FallingTaskBase>> FallingExitTasks;
 
 	EAV_FallRangeState TestRange(const FAV_FallRangeContext& ConditionContext);
