@@ -38,11 +38,12 @@ Current Version: 1.2
 
 This is a plugin containing assets used for Level Prototyping that I use across all my personal projects.
 
-Current Version: 0.5
+Current Version: 0.6
 
 <details>
   <summary>Change log</summary>
 
+- 0.6: Fixed Object Redirectors
 - 0.5: Upgraded to Unreal Engine 5.7.
 - 0.4: Added 2 Sample Maps
 - 0.3: Update to Unreal Engine 5.6
