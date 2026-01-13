@@ -1,7 +1,7 @@
 {
 	"FileVersion": 3,
 	"Version": 1,
-	"VersionName": "0.4",
+	"VersionName": "0.5",
 	"FriendlyName": "AVUtilitiesLibrary",
 	"Description": "This is my personal utilities Library Plugin",
 	"Category": "Other",
@@ -19,6 +19,16 @@
 			"Name": "AVUtilities",
 			"Type": "Runtime",
 			"LoadingPhase": "PreDefault"
+		}
+	],
+	"Plugins": [
+		{
+			"Name": "GameplayStateTree",
+			"Enabled": true
+		},
+		{
+			"Name": "StateTree",
+			"Enabled": true
 		}
 	],
 	"SupportedTargetPlatforms": [ "Win64" ]

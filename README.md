@@ -59,11 +59,16 @@ Current Version: 0.6
 
 This is a plugin of a module that contains all my shared code that will be used across all my personal projects.
 
-Current Version: 0.4
+Current Version: 0.5
 
 <details>
   <summary>Change log</summary>
 
+- 0.5: Added StateTree Classes:
+  - PlayerController StateTree Component and ComponentSchema
+  - Object Implements Interface StateTree Task
+  - Play AnimMontage StateTree Task
+  - Play Force Feedback StateTree Task
 - 0.4: Upgraded to Unreal Engine 5.7.
 - 0.3: Updated class prefixes
 - 0.2: Update to Unreal Engine 5.6
