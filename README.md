@@ -77,3 +77,19 @@ Current Version: 0.5
   - Draw Debug Statics containing a function to draw a named directional arrow
 
 </details>
+
+## AV Utilities Library for the CommonUI Plugin (AVUtilitiesCommonUI)
+
+This is a plugin of a module that contains utilities and extensions for the CommonUI Plugin.
+
+This includes small parts taken from the 'CommonGame' and 'UIExtension' plugins from Lyra by Epic Games. Until those plugins are available on Marketplace,
+in which case they will be removed from this repository and used instead.
+
+<details>
+  <summary>Change log</summary>
+
+- 0.1: Initial Release:
+  - Added initial and refactored content from the 'CommonGame' plugin from Lyra by Epic Games suitable for single-player games
+  - Added initial and refactored content from the 'UIExtension' plugin from Lyra by Epic Games suitable for single-player games
+
+</details>
