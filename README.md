@@ -59,11 +59,13 @@ Current Version: 0.6
 
 This is a plugin of a module that contains all my shared code that will be used across all my personal projects.
 
-Current Version: 0.5
+Current Version: 0.6
 
 <details>
   <summary>Change log</summary>
 
+- 0.6: Added UMG Class:
+  - CreateUserWidgetAsync 
 - 0.5: Added StateTree Classes:
   - PlayerController StateTree Component and ComponentSchema
   - Object Implements Interface StateTree Task

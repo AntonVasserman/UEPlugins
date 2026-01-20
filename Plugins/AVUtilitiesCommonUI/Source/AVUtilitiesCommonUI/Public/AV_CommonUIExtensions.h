@@ -31,20 +31,20 @@ class  UAV_CommonUIExtensions : public UBlueprintFunctionLibrary
 public:
 	UAV_CommonUIExtensions() { }
 	
-	UFUNCTION(BlueprintPure, BlueprintCosmetic, Category = "Global UI Extensions", meta = (WorldContext = "WidgetContextObject"))
+	UFUNCTION(BlueprintPure, BlueprintCosmetic, Category = "Global UI Extensions", Meta = (WorldContext = "WidgetContextObject"))
 	static UE_API ECommonInputType GetOwningPlayerInputType(const UUserWidget* WidgetContextObject);
 	
-	UFUNCTION(BlueprintPure, BlueprintCosmetic, Category = "Global UI Extensions", meta = (WorldContext = "WidgetContextObject"))
+	UFUNCTION(BlueprintPure, BlueprintCosmetic, Category = "Global UI Extensions", Meta = (WorldContext = "WidgetContextObject"))
 	static UE_API bool IsOwningPlayerUsingTouch(const UUserWidget* WidgetContextObject);
 
-	UFUNCTION(BlueprintPure, BlueprintCosmetic, Category = "Global UI Extensions", meta = (WorldContext = "WidgetContextObject"))
+	UFUNCTION(BlueprintPure, BlueprintCosmetic, Category = "Global UI Extensions", Meta = (WorldContext = "WidgetContextObject"))
 	static UE_API bool IsOwningPlayerUsingGamepad(const UUserWidget* WidgetContextObject);
 	
 	UFUNCTION(BlueprintCallable, BlueprintCosmetic, Category = "Global UI Extensions")
-	static UE_API UCommonActivatableWidget* PushContentToLayer_ForPlayer(const ULocalPlayer* LocalPlayer, UPARAM(meta = (Categories = "UI.Layer")) FGameplayTag LayerName, UPARAM(meta = (AllowAbstract = false)) TSubclassOf<UCommonActivatableWidget> WidgetClass);
+	static UE_API UCommonActivatableWidget* PushContentToLayer_ForPlayer(const ULocalPlayer* LocalPlayer, UPARAM(Meta = (Categories = "UI.Layer")) FGameplayTag LayerName, UPARAM(Meta = (AllowAbstract = false)) TSubclassOf<UCommonActivatableWidget> WidgetClass);
 
 	UFUNCTION(BlueprintCallable, BlueprintCosmetic, Category = "Global UI Extensions")
-	static UE_API void PushStreamedContentToLayer_ForPlayer(const ULocalPlayer* LocalPlayer, UPARAM(meta = (Categories = "UI.Layer")) FGameplayTag LayerName, UPARAM(meta = (AllowAbstract = false)) TSoftClassPtr<UCommonActivatableWidget> WidgetClass);
+	static UE_API void PushStreamedContentToLayer_ForPlayer(const ULocalPlayer* LocalPlayer, UPARAM(Meta = (Categories = "UI.Layer")) FGameplayTag LayerName, UPARAM(Meta = (AllowAbstract = false)) TSoftClassPtr<UCommonActivatableWidget> WidgetClass);
 
 	UFUNCTION(BlueprintCallable, BlueprintCosmetic, Category = "Global UI Extensions")
 	static UE_API void PopContentFromLayer(UCommonActivatableWidget* ActivatableWidget);

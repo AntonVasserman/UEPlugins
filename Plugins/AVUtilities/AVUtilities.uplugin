@@ -1,7 +1,7 @@
 {
 	"FileVersion": 3,
 	"Version": 1,
-	"VersionName": "0.5",
+	"VersionName": "0.6",
 	"FriendlyName": "AVUtilitiesLibrary",
 	"Description": "This is my personal utilities Library Plugin",
 	"Category": "Other",

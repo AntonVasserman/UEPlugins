@@ -8,44 +8,24 @@ public class AVUtilities : ModuleRules
 	{
 		PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
 		
-		PublicIncludePaths.AddRange(
-			new string[]
-			{
-				// ... add public include paths required here ...
-			});
-				
-		
-		PrivateIncludePaths.AddRange(
-			new string[]
-			{
-				// ... add other private include paths required here ...
-			});
-			
+		PublicIncludePaths.AddRange(new string[] { });
+		PrivateIncludePaths.AddRange(new string[] { });
 		
 		PublicDependencyModuleNames.AddRange(
 			new string[]
 			{
 				"AIModule",
 				"Core",
-				"GameplayStateTreeModule",
-				"StateTreeModule",
-			});
-			
-		
-		PrivateDependencyModuleNames.AddRange(
-			new string[]
-			{
 				"CoreUObject",
 				"Engine",
+				"GameplayStateTreeModule",
+				"StateTreeModule",
 				"Slate",
 				"SlateCore",
+				"UMG",
 			});
+		PrivateDependencyModuleNames.AddRange(new string[] { });
 		
-		
-		DynamicallyLoadedModuleNames.AddRange(
-			new string[]
-			{
-				// ... add any modules that your module loads dynamically here ...
-			});
+		DynamicallyLoadedModuleNames.AddRange(new string[] { });
 	}
 }

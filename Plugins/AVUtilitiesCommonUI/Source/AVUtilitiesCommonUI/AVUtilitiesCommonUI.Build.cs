@@ -18,6 +18,7 @@ public class AVUtilitiesCommonUI : ModuleRules
 				"CommonUI",
 				"Core",
 				"CoreUObject",
+				"DeveloperSettings",
 				"Engine",
 				"GameplayTags",
 				"Slate",

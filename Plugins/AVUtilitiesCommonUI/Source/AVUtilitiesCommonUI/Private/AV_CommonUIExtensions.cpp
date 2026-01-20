@@ -3,12 +3,11 @@
 
 #include "AV_CommonUIExtensions.h"
 
-#include "AV_GameUIManagerSubsystem.h"
-#include "AV_GameUIPolicy.h"
-#include "AV_PrimaryGameLayout.h"
 #include "CommonInputSubsystem.h"
 #include "CommonInputTypeEnum.h"
 #include "Engine/GameInstance.h"
+#include "PrimaryGameLayout/AV_PrimaryGameLayout.h"
+#include "PrimaryGameLayout/AV_PrimaryGameLayoutSubsystem.h"
 #include "Widgets/CommonActivatableWidgetContainer.h"
 
 #include UE_INLINE_GENERATED_CPP_BY_NAME(AV_CommonUIExtensions)
@@ -59,14 +58,11 @@ UCommonActivatableWidget* UAV_CommonUIExtensions::PushContentToLayer_ForPlayer(c
 		return nullptr;
 	}
 
-	if (UAV_GameUIManagerSubsystem* UIManager = LocalPlayer->GetGameInstance()->GetSubsystem<UAV_GameUIManagerSubsystem>())
+	if (UAV_PrimaryGameLayoutSubsystem* UIManager = LocalPlayer->GetGameInstance()->GetSubsystem<UAV_PrimaryGameLayoutSubsystem>())
 	{
-		if (UAV_GameUIPolicy* Policy = UIManager->GetCurrentUIPolicy())
+		if (UAV_PrimaryGameLayout* RootLayout = UIManager->GetRootLayout(CastChecked<ULocalPlayer>(LocalPlayer)))
 		{
-			if (UAV_PrimaryGameLayout* RootLayout = Policy->GetRootLayout(CastChecked<ULocalPlayer>(LocalPlayer)))
-			{
-				return RootLayout->PushWidgetToLayerStack(LayerName, WidgetClass);
-			}
+			return RootLayout->PushWidgetToLayerStack(LayerName, WidgetClass);
 		}
 	}
 
@@ -80,14 +76,11 @@ void UAV_CommonUIExtensions::PushStreamedContentToLayer_ForPlayer(const ULocalPl
 		return;
 	}
 
-	if (UAV_GameUIManagerSubsystem* UIManager = LocalPlayer->GetGameInstance()->GetSubsystem<UAV_GameUIManagerSubsystem>())
+	if (UAV_PrimaryGameLayoutSubsystem* UIManager = LocalPlayer->GetGameInstance()->GetSubsystem<UAV_PrimaryGameLayoutSubsystem>())
 	{
-		if (UAV_GameUIPolicy* Policy = UIManager->GetCurrentUIPolicy())
+		if (UAV_PrimaryGameLayout* RootLayout = UIManager->GetRootLayout(CastChecked<ULocalPlayer>(LocalPlayer)))
 		{
-			if (UAV_PrimaryGameLayout* RootLayout = Policy->GetRootLayout(CastChecked<ULocalPlayer>(LocalPlayer)))
-			{
-				RootLayout->PushWidgetToLayerStackAsync(LayerName, WidgetClass);
-			}
+			RootLayout->PushWidgetToLayerStackAsync(LayerName, WidgetClass);
 		}
 	}
 }
@@ -102,14 +95,11 @@ void UAV_CommonUIExtensions::PopContentFromLayer(UCommonActivatableWidget* Activ
 
 	if (const ULocalPlayer* LocalPlayer = ActivatableWidget->GetOwningLocalPlayer())
 	{
-		if (const UAV_GameUIManagerSubsystem* UIManager = LocalPlayer->GetGameInstance()->GetSubsystem<UAV_GameUIManagerSubsystem>())
+		if (const UAV_PrimaryGameLayoutSubsystem* UIManager = LocalPlayer->GetGameInstance()->GetSubsystem<UAV_PrimaryGameLayoutSubsystem>())
 		{
-			if (const UAV_GameUIPolicy* Policy = UIManager->GetCurrentUIPolicy())
+			if (UAV_PrimaryGameLayout* RootLayout = UIManager->GetRootLayout(CastChecked<ULocalPlayer>(LocalPlayer)))
 			{
-				if (UAV_PrimaryGameLayout* RootLayout = Policy->GetRootLayout(CastChecked<ULocalPlayer>(LocalPlayer)))
-				{
-					RootLayout->FindAndRemoveWidgetFromLayer(ActivatableWidget);
-				}
+				RootLayout->FindAndRemoveWidgetFromLayer(ActivatableWidget);
 			}
 		}
 	}
