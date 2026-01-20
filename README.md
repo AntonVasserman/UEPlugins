@@ -88,10 +88,26 @@ This includes small parts taken from the 'CommonGame' and 'UIExtension' plugins 
 in which case they will be removed from this repository and used instead.
 
 <details>
-  <summary>Change log</summary>
-
+  <summary>Change log</summary>~~~~
+~~~~
 - 0.1: Initial Release:
   - Added initial and refactored content from the 'CommonGame' plugin from Lyra by Epic Games suitable for single-player games
   - Added initial and refactored content from the 'UIExtension' plugin from Lyra by Epic Games suitable for single-player games
+
+</details>~~~~
+
+## AV Utilities Library for the Gameplay Abilities Plugin (AVUtilitiesGameplayAbilities)
+
+This is a plugin of a module that contains utilities and extensions for the Gameplay Abilities Plugin.
+
+<details>
+  <summary>Change log</summary>
+
+- 0.1: Initial Release:
+  - Added StateTree Classes:
+    - StateTree Condition to check if a Gameplay Tag is present
+    - StateTree Evaluator to extract an Ability System Component from the context Actor
+    - StateTree Task to apply a Gameplay Effect
+    - StateTree Task to add a Gameplay Tag
 
 </details>
