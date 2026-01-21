@@ -58,16 +58,16 @@ void UAV_PrimaryGameLayout::RegisterLayer(FGameplayTag LayerTag, UCommonActivata
 	}
 }
 
-void UAV_PrimaryGameLayout::FindAndRemoveWidgetFromLayer(UCommonActivatableWidget* ActivatableWidget)
+void UAV_PrimaryGameLayout::FindAndRemoveWidgetFromLayers(UCommonActivatableWidget* ActivatableWidget)
 {
-	// We're not sure what layer the widget is on so go searching.
+	// We're not sure what layer the widget is in, so we search.
 	for (const auto& LayerKVP : Layers)
 	{
 		LayerKVP.Value->RemoveWidget(*ActivatableWidget);
 	}
 }
 
-UCommonActivatableWidgetContainerBase* UAV_PrimaryGameLayout::GetLayerWidget(FGameplayTag LayerName)
+UCommonActivatableWidgetContainerBase* UAV_PrimaryGameLayout::GetLayerWidget(FGameplayTag LayerName) const
 {
 	return Layers.FindRef(LayerName);
 }

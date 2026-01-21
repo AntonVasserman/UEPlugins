@@ -10,18 +10,12 @@
 #define UE_API AVUTILITIESCOMMONUI_API
 
 enum class ECommonInputType : uint8;
-template <typename T> class TSubclassOf;
 
-class APlayerController;
 class UCommonActivatableWidget;
-class ULocalPlayer;
-class UObject;
 class UUserWidget;
-struct FFrame;
-struct FGameplayTag;
 
 /**
- * TODO
+ * A utility class for additional functionality when working with the CommonUI plugin.
  */
 UCLASS(MinimalAPI)
 class  UAV_CommonUIExtensions : public UBlueprintFunctionLibrary
@@ -35,19 +29,13 @@ public:
 	static UE_API ECommonInputType GetOwningPlayerInputType(const UUserWidget* WidgetContextObject);
 	
 	UFUNCTION(BlueprintPure, BlueprintCosmetic, Category = "Global UI Extensions", Meta = (WorldContext = "WidgetContextObject"))
-	static UE_API bool IsOwningPlayerUsingTouch(const UUserWidget* WidgetContextObject);
-
-	UFUNCTION(BlueprintPure, BlueprintCosmetic, Category = "Global UI Extensions", Meta = (WorldContext = "WidgetContextObject"))
 	static UE_API bool IsOwningPlayerUsingGamepad(const UUserWidget* WidgetContextObject);
 	
-	UFUNCTION(BlueprintCallable, BlueprintCosmetic, Category = "Global UI Extensions")
-	static UE_API UCommonActivatableWidget* PushContentToLayer_ForPlayer(const ULocalPlayer* LocalPlayer, UPARAM(Meta = (Categories = "UI.Layer")) FGameplayTag LayerName, UPARAM(Meta = (AllowAbstract = false)) TSubclassOf<UCommonActivatableWidget> WidgetClass);
-
-	UFUNCTION(BlueprintCallable, BlueprintCosmetic, Category = "Global UI Extensions")
-	static UE_API void PushStreamedContentToLayer_ForPlayer(const ULocalPlayer* LocalPlayer, UPARAM(Meta = (Categories = "UI.Layer")) FGameplayTag LayerName, UPARAM(Meta = (AllowAbstract = false)) TSoftClassPtr<UCommonActivatableWidget> WidgetClass);
-
-	UFUNCTION(BlueprintCallable, BlueprintCosmetic, Category = "Global UI Extensions")
-	static UE_API void PopContentFromLayer(UCommonActivatableWidget* ActivatableWidget);
+	UFUNCTION(BlueprintPure, BlueprintCosmetic, Category = "Global UI Extensions", Meta = (WorldContext = "WidgetContextObject"))
+	static UE_API bool IsOwningPlayerUsingMouseAndKeyboard(const UUserWidget* WidgetContextObject);
+	
+	UFUNCTION(BlueprintPure, BlueprintCosmetic, Category = "Global UI Extensions", Meta = (WorldContext = "WidgetContextObject"))
+	static UE_API bool IsOwningPlayerUsingTouch(const UUserWidget* WidgetContextObject);
 };
 
 #undef UE_API

@@ -7,6 +7,9 @@
 
 class UAV_PrimaryGameLayout;
 
+/**
+ * This class is responsible for storing and managing the configurations of the primary game layout.
+ */
 UCLASS(Config = Game, DefaultConfig, Meta = (DisplayName = "Primary Game Layout Settings"))
 class AVUTILITIESCOMMONUI_API UAV_PrimaryGameLayoutSettings : public UDeveloperSettings
 {

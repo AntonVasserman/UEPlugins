@@ -90,9 +90,10 @@ in which case they will be removed from this repository and used instead.
 <details>
   <summary>Change log</summary>~~~~
 ~~~~
+- 0.3: [TODO] Added content from 'UIExtension' plugin from Lyra by Epic Games
+- 0.2: Added ConfirmationWidget logic from 'CommonGame' plugin from Lyra by Epic Games
 - 0.1: Initial Release:
   - Added initial and refactored content from the 'CommonGame' plugin from Lyra by Epic Games suitable for single-player games
-  - Added initial and refactored content from the 'UIExtension' plugin from Lyra by Epic Games suitable for single-player games
 
 </details>~~~~
 

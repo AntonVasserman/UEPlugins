@@ -17,7 +17,6 @@ class UClass;
 class UCommonActivatableWidgetContainerBase;
 class ULocalPlayer;
 class UObject;
-struct FFrame;
 
 /**
  * The state of an async load operation for the UI.
@@ -46,13 +45,13 @@ public:
 	UE_API UAV_PrimaryGameLayout(const FObjectInitializer& ObjectInitializer);
 
 	template <typename ActivatableWidgetT = UCommonActivatableWidget>
-	TSharedPtr<FStreamableHandle> PushWidgetToLayerStackAsync(UPARAM(Meta = (Categories = "UI.Layer")) FGameplayTag LayerName, TSoftClassPtr<UCommonActivatableWidget> ActivatableWidgetClass)
+	TSharedPtr<FStreamableHandle> PushWidgetToLayerAsync(UPARAM(Meta = (Categories = "UI.Layer")) FGameplayTag LayerName, TSoftClassPtr<UCommonActivatableWidget> ActivatableWidgetClass)
 	{
-		return PushWidgetToLayerStackAsync<ActivatableWidgetT>(LayerName, ActivatableWidgetClass, [](EAsyncWidgetLayerState, ActivatableWidgetT*) {});
+		return PushWidgetToLayerAsync<ActivatableWidgetT>(LayerName, ActivatableWidgetClass, [](EAsyncWidgetLayerState, ActivatableWidgetT*) {});
 	}
 
 	template <typename ActivatableWidgetT = UCommonActivatableWidget>
-	TSharedPtr<FStreamableHandle> PushWidgetToLayerStackAsync(UPARAM(Meta = (Categories = "UI.Layer")) FGameplayTag LayerName, TSoftClassPtr<UCommonActivatableWidget> ActivatableWidgetClass, TFunction<void(EAsyncWidgetLayerState, ActivatableWidgetT*)> StateFunc)
+	TSharedPtr<FStreamableHandle> PushWidgetToLayerAsync(UPARAM(Meta = (Categories = "UI.Layer")) FGameplayTag LayerName, TSoftClassPtr<UCommonActivatableWidget> ActivatableWidgetClass, TFunction<void(EAsyncWidgetLayerState, ActivatableWidgetT*)> StateFunc)
 	{
 		static_assert(TIsDerivedFrom<ActivatableWidgetT, UCommonActivatableWidget>::IsDerived, "Only CommonActivatableWidgets can be used here");
 
@@ -60,7 +59,7 @@ public:
 		TSharedPtr<FStreamableHandle> StreamingHandle = StreamableManager.RequestAsyncLoad(ActivatableWidgetClass.ToSoftObjectPath(), FStreamableDelegate::CreateWeakLambda(this,
 			[this, LayerName, ActivatableWidgetClass, StateFunc]()
 			{
-				ActivatableWidgetT* Widget = PushWidgetToLayerStack<ActivatableWidgetT>(LayerName, ActivatableWidgetClass.Get(), [StateFunc](ActivatableWidgetT& WidgetToInit) {
+				ActivatableWidgetT* Widget = PushWidgetToLayer<ActivatableWidgetT>(LayerName, ActivatableWidgetClass.Get(), [StateFunc](ActivatableWidgetT& WidgetToInit) {
 					StateFunc(EAsyncWidgetLayerState::Initialize, &WidgetToInit);
 				});
 
@@ -80,13 +79,13 @@ public:
 	}
 
 	template <typename ActivatableWidgetT = UCommonActivatableWidget>
-	ActivatableWidgetT* PushWidgetToLayerStack(UPARAM(Meta = (Categories = "UI.Layer")) FGameplayTag LayerName, UClass* ActivatableWidgetClass)
+	ActivatableWidgetT* PushWidgetToLayer(UPARAM(Meta = (Categories = "UI.Layer")) FGameplayTag LayerName, UClass* ActivatableWidgetClass)
 	{
-		return PushWidgetToLayerStack<ActivatableWidgetT>(LayerName, ActivatableWidgetClass, [](ActivatableWidgetT&) {});
+		return PushWidgetToLayer<ActivatableWidgetT>(LayerName, ActivatableWidgetClass, [](ActivatableWidgetT&) {});
 	}
 
 	template <typename ActivatableWidgetT = UCommonActivatableWidget>
-	ActivatableWidgetT* PushWidgetToLayerStack(UPARAM(Meta = (Categories = "UI.Layer")) FGameplayTag LayerName, UClass* ActivatableWidgetClass, TFunctionRef<void(ActivatableWidgetT&)> InitInstanceFunc)
+	ActivatableWidgetT* PushWidgetToLayer(UPARAM(Meta = (Categories = "UI.Layer")) FGameplayTag LayerName, UClass* ActivatableWidgetClass, TFunctionRef<void(ActivatableWidgetT&)> InitInstanceFunc)
 	{
 		static_assert(TIsDerivedFrom<ActivatableWidgetT, UCommonActivatableWidget>::IsDerived, "Only CommonActivatableWidgets can be used here");
 
@@ -99,10 +98,10 @@ public:
 	}
 
 	// Find the widget if it exists on any of the layers and remove it from the layer.
-	UE_API void FindAndRemoveWidgetFromLayer(UCommonActivatableWidget* ActivatableWidget);
+	UE_API void FindAndRemoveWidgetFromLayers(UCommonActivatableWidget* ActivatableWidget);
 
 	// Get the layer widget for the given layer tag.
-	UE_API UCommonActivatableWidgetContainerBase* GetLayerWidget(FGameplayTag LayerName);
+	UE_API UCommonActivatableWidgetContainerBase* GetLayerWidget(UPARAM(Meta = (Categories = "UI.Layer")) FGameplayTag LayerName) const;
 
 protected:
 	/** Register a layer that widgets can be pushed onto. */
@@ -111,7 +110,7 @@ protected:
 
 private:
 	// The registered layers for the primary layout.
-	UPROPERTY(Transient, meta = (Categories = "UI.Layer"))
+	UPROPERTY(Transient, Meta = (Categories = "UI.Layer"))
 	TMap<FGameplayTag, TObjectPtr<UCommonActivatableWidgetContainerBase>> Layers;
 };
 
