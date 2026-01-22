@@ -40,7 +40,7 @@ UAV_AsyncAction_PushContentToLayerAsync* UAV_AsyncAction_PushContentToLayerAsync
 
 void UAV_AsyncAction_PushContentToLayerAsync::Activate()
 {
-	if (UAV_PrimaryGameLayout* RootLayout = UAV_PrimaryGameLayout::GetPrimaryGameLayout(OwningPlayerPtr.Get()))
+	if (UAV_PrimaryGameLayout* RootLayout = UAV_PrimaryGameLayout::GetPrimaryGameLayoutForPlayerController(OwningPlayerPtr.Get()))
 	{
 		TWeakObjectPtr WeakThis = this;
 		

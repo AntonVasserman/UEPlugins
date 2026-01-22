@@ -13,7 +13,7 @@ class UAV_PrimaryGameLayout;
 class ULocalPlayer;
 
 /**
- * TODO
+ * This struct is used to store and manage data about the root viewport layout for each local player.
  */
 USTRUCT()
 struct FAV_RootViewportLayoutInfo
@@ -44,7 +44,7 @@ struct FAV_RootViewportLayoutInfo
 };
 
 /**
- * TODO
+ * This class is responsible for managing the primary game layout subsystem.
  */
 UCLASS(MinimalAPI, Config = Game)
 class UAV_PrimaryGameLayoutSubsystem : public UGameInstanceSubsystem

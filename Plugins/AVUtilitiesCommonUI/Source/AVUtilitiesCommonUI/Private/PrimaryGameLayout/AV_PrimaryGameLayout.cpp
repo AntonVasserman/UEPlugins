@@ -16,15 +16,15 @@
 {
 	UGameInstance* GameInstance = UGameplayStatics::GetGameInstance(WorldContextObject);
 	APlayerController* PlayerController = GameInstance->GetPrimaryPlayerController(false);
-	return GetPrimaryGameLayout(PlayerController);
+	return GetPrimaryGameLayoutForPlayerController(PlayerController);
 }
 
-/*static*/ UAV_PrimaryGameLayout* UAV_PrimaryGameLayout::GetPrimaryGameLayout(APlayerController* PlayerController)
+/*static*/ UAV_PrimaryGameLayout* UAV_PrimaryGameLayout::GetPrimaryGameLayoutForPlayerController(APlayerController* PlayerController)
 {
-	return PlayerController ? GetPrimaryGameLayout(Cast<ULocalPlayer>(PlayerController->Player)) : nullptr;
+	return PlayerController ? GetPrimaryGameLayoutForLocalPlayer(Cast<ULocalPlayer>(PlayerController->Player)) : nullptr;
 }
 
-/*static*/ UAV_PrimaryGameLayout* UAV_PrimaryGameLayout::GetPrimaryGameLayout(ULocalPlayer* LocalPlayer)
+/*static*/ UAV_PrimaryGameLayout* UAV_PrimaryGameLayout::GetPrimaryGameLayoutForLocalPlayer(ULocalPlayer* LocalPlayer)
 {
 	if (LocalPlayer)
 	{

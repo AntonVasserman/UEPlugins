@@ -4,43 +4,40 @@
 
 #include "CoreMinimal.h"
 #include "StateTreeTaskBase.h"
-#include "UObject/Object.h"
-#include "AV_PlayForceFeedbackStateTreeTask.generated.h"
 
-class APlayerController;
-class UForceFeedbackEffect;
+#include "AV_SetRandomFloatStateTreeTask.generated.h"
 
 USTRUCT()
-struct AVUTILITIES_API FAV_PlayForceFeedbackStateTreeTaskInstanceData
+struct FAV_SetRandomFloatStateTreeTaskInstanceData
 {
 	GENERATED_BODY()
-	
-	UPROPERTY(EditAnywhere, Category = "Context")
-	TObjectPtr<APlayerController> Controller = nullptr;
 
+	/** Minimum random value */
 	UPROPERTY(EditAnywhere, Category = "Parameter")
-	TObjectPtr<UForceFeedbackEffect> ForceFeedbackEffect = nullptr;
+	float MinValue = 0.0f;
 
+	/** Maximum random value */
 	UPROPERTY(EditAnywhere, Category = "Parameter")
-	FName ForceFeedbackTag = NAME_None;
+	float MaxValue = 0.0f;
 
-	UPROPERTY(EditAnywhere, Category = "Parameter")
-	bool bLoop = false;
+	/** Output calculated value */
+	UPROPERTY(EditAnywhere, Category = "Output")
+	float OutValue = 0.0f;
 };
 
-USTRUCT(Meta = (DisplayName = "Play Force Feedback"))
-struct AVUTILITIES_API FAV_PlayForceFeedbackStateTreeTask : public FStateTreeTaskCommonBase
+/**
+ *  StateTree task to calculate a random float value within the specified range
+ */
+USTRUCT(Meta = (DisplayName = "Set Random Float", Category = "Shooter"))
+struct FAV_SetRandomFloatStateTreeTask : public FStateTreeTaskCommonBase
 {
 	GENERATED_BODY()
 
-	FAV_PlayForceFeedbackStateTreeTask();
-	
-	using FInstanceDataType = FAV_PlayForceFeedbackStateTreeTaskInstanceData;
+	using FInstanceDataType = FAV_SetRandomFloatStateTreeTaskInstanceData;
 
 	//~ FStateTreeTaskCommonBase
 	virtual const UStruct* GetInstanceDataType() const override { return FInstanceDataType::StaticStruct(); }
 	virtual EStateTreeRunStatus EnterState(FStateTreeExecutionContext& Context, const FStateTreeTransitionResult& Transition) const override;
-
 #if WITH_EDITOR
 	virtual FText GetDescription(const FGuid& ID, FStateTreeDataView InstanceDataView, const IStateTreeBindingLookup& BindingLookup, EStateTreeNodeFormatting Formatting = EStateTreeNodeFormatting::Text) const override;
 #endif // WITH_EDITOR

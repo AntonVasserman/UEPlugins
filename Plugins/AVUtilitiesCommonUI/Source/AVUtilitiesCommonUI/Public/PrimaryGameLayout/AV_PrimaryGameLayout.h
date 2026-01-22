@@ -38,9 +38,14 @@ class UAV_PrimaryGameLayout : public UCommonUserWidget
 	GENERATED_BODY()
 	
 public:
+	UFUNCTION(BlueprintCallable, Category = "Primary Game Layout", Meta = (DisplayName = "Get Primary Game Layout", WorldContext = "WorldContextObject"))
 	static UE_API UAV_PrimaryGameLayout* GetPrimaryGameLayoutForPrimaryPlayer(const UObject* WorldContextObject);
-	static UE_API UAV_PrimaryGameLayout* GetPrimaryGameLayout(APlayerController* PlayerController);
-	static UE_API UAV_PrimaryGameLayout* GetPrimaryGameLayout(ULocalPlayer* LocalPlayer);
+	
+	UFUNCTION(BlueprintCallable, Meta = (DisplayName = "Get Primary Game Layout (Player Controller)"))
+	static UE_API UAV_PrimaryGameLayout* GetPrimaryGameLayoutForPlayerController(APlayerController* PlayerController);
+	
+	UFUNCTION(BlueprintCallable, Meta = (DisplayName = "Get Primary Game Layout (Local Player)"))
+	static UE_API UAV_PrimaryGameLayout* GetPrimaryGameLayoutForLocalPlayer(ULocalPlayer* LocalPlayer);
 	
 	UE_API UAV_PrimaryGameLayout(const FObjectInitializer& ObjectInitializer);
 
@@ -59,7 +64,7 @@ public:
 		TSharedPtr<FStreamableHandle> StreamingHandle = StreamableManager.RequestAsyncLoad(ActivatableWidgetClass.ToSoftObjectPath(), FStreamableDelegate::CreateWeakLambda(this,
 			[this, LayerName, ActivatableWidgetClass, StateFunc]()
 			{
-				ActivatableWidgetT* Widget = PushWidgetToLayer<ActivatableWidgetT>(LayerName, ActivatableWidgetClass.Get(), [StateFunc](ActivatableWidgetT& WidgetToInit) {
+				ActivatableWidgetT* Widget = PushWidgetToLayer(LayerName, ActivatableWidgetClass, [StateFunc](ActivatableWidgetT& WidgetToInit) {
 					StateFunc(EAsyncWidgetLayerState::Initialize, &WidgetToInit);
 				});
 
@@ -78,20 +83,17 @@ public:
 		return StreamingHandle;
 	}
 
-	template <typename ActivatableWidgetT = UCommonActivatableWidget>
-	ActivatableWidgetT* PushWidgetToLayer(UPARAM(Meta = (Categories = "UI.Layer")) FGameplayTag LayerName, UClass* ActivatableWidgetClass)
+	UFUNCTION(BlueprintCallable, Category = "Primary Game Layout")
+	UCommonActivatableWidget* PushWidgetToLayer(UPARAM(Meta = (Categories = "UI.Layer")) FGameplayTag LayerName, TSoftClassPtr<UCommonActivatableWidget> ActivatableWidgetClass)
 	{
-		return PushWidgetToLayer<ActivatableWidgetT>(LayerName, ActivatableWidgetClass, [](ActivatableWidgetT&) {});
+		return PushWidgetToLayer(LayerName, ActivatableWidgetClass, [](UCommonActivatableWidget&) {});
 	}
 
-	template <typename ActivatableWidgetT = UCommonActivatableWidget>
-	ActivatableWidgetT* PushWidgetToLayer(UPARAM(Meta = (Categories = "UI.Layer")) FGameplayTag LayerName, UClass* ActivatableWidgetClass, TFunctionRef<void(ActivatableWidgetT&)> InitInstanceFunc)
+	UCommonActivatableWidget* PushWidgetToLayer(UPARAM(Meta = (Categories = "UI.Layer")) FGameplayTag LayerName, TSoftClassPtr<UCommonActivatableWidget> ActivatableWidgetClass, TFunctionRef<void(UCommonActivatableWidget&)> InitInstanceFunc)
 	{
-		static_assert(TIsDerivedFrom<ActivatableWidgetT, UCommonActivatableWidget>::IsDerived, "Only CommonActivatableWidgets can be used here");
-
 		if (UCommonActivatableWidgetContainerBase* Layer = GetLayerWidget(LayerName))
 		{
-			return Layer->AddWidget<ActivatableWidgetT>(ActivatableWidgetClass, InitInstanceFunc);
+			return Layer->AddWidget<UCommonActivatableWidget>(ActivatableWidgetClass.LoadSynchronous(), InitInstanceFunc);
 		}
 
 		return nullptr;
@@ -105,7 +107,7 @@ public:
 
 protected:
 	/** Register a layer that widgets can be pushed onto. */
-	UFUNCTION(BlueprintCallable, Category = "Layer")
+	UFUNCTION(BlueprintCallable, Category = "Primary Game Layout|Layer")
 	UE_API void RegisterLayer(UPARAM(Meta = (Categories = "UI.Layer")) FGameplayTag LayerTag, UCommonActivatableWidgetContainerBase* LayerWidget);
 
 private:

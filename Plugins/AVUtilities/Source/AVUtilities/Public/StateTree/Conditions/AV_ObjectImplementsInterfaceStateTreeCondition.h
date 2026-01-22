@@ -14,7 +14,7 @@ struct AVUTILITIES_API FAV_ObjectImplementsInterfaceStateTreeConditionInstanceDa
 {
 	GENERATED_BODY()
 
-	UPROPERTY(EditAnywhere, Category = "Inputs")
+	UPROPERTY(EditAnywhere, Category = "Input")
 	TObjectPtr<UObject> Object;
 
 	UPROPERTY(EditAnywhere, Category = "Parameter", Meta = (AllowAbstract = "true"))

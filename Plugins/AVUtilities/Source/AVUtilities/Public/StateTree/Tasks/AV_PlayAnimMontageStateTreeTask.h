@@ -17,13 +17,13 @@ struct AVUTILITIES_API FAV_PlayAnimMontageStateTreeTaskInstanceData
 	UPROPERTY(EditAnywhere, Category = "Context")
 	TObjectPtr<ACharacter> Character;
 
-	UPROPERTY(EditAnywhere, Category = "Parameters")
+	UPROPERTY(EditAnywhere, Category = "Parameter")
 	TObjectPtr<UAnimMontage> AnimMontage = nullptr;
 
-	UPROPERTY(EditAnywhere, Category = "Parameters", Meta = (EditCondition = "AnimMontage != nullptr", EditConditionHides))
+	UPROPERTY(EditAnywhere, Category = "Parameter", Meta = (EditCondition = "AnimMontage != nullptr", EditConditionHides))
 	bool bJumpToSection = false;
 
-	UPROPERTY(EditAnywhere, Category = "Parameters", Meta = (EditCondition = "AnimMontage != nullptr && bJumpToSection == true", EditConditionHides))
+	UPROPERTY(EditAnywhere, Category = "Parameter", Meta = (EditCondition = "AnimMontage != nullptr && bJumpToSection == true", EditConditionHides))
 	FName SectionName = NAME_None;
 };
 
