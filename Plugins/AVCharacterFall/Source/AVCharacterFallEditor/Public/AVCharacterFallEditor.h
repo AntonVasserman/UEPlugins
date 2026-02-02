@@ -11,9 +11,8 @@ class FAVCharacterFallEditorModule : public IModuleInterface
 	void SetupCustomIcons();
 	void SetupCharacterFallComponentIcon(FSlateStyleSet* StyleSet);
 	
-	//~ IModuleInterface Begin
+	//~ IModuleInterface
 public:
 	virtual void StartupModule() override;
 	virtual void ShutdownModule() override;
-	//~ IModuleInterface End
 };

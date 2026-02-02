@@ -1,7 +1,7 @@
 {
 	"FileVersion": 3,
 	"Version": 1,
-	"VersionName": "0.6",
+	"VersionName": "0.7",
 	"FriendlyName": "AVUtilitiesLibrary",
 	"Description": "This is my personal utilities Library Plugin",
 	"Category": "Other",
@@ -19,6 +19,11 @@
 			"Name": "AVUtilities",
 			"Type": "Runtime",
 			"LoadingPhase": "PreDefault"
+		},
+		{
+			"Name": "AVUtilitiesEditor",
+			"Type": "Editor",
+			"LoadingPhase": "Default"
 		}
 	],
 	"Plugins": [

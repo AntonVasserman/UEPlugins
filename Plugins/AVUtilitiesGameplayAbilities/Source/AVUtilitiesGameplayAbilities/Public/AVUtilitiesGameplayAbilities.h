@@ -4,6 +4,8 @@
 
 #include "Modules/ModuleManager.h"
 
+AVUTILITIESGAMEPLAYABILITIES_API DECLARE_LOG_CATEGORY_EXTERN(LogAV_UtilitiesGameplayAbilities, Log, All);
+
 class FAVUtilitiesGameplayAbilitiesModule : public IModuleInterface
 {
 public:

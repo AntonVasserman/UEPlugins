@@ -59,11 +59,16 @@ Current Version: 0.6
 
 This is a plugin of a module that contains all my shared code that will be used across all my personal projects.
 
-Current Version: 0.6
+Current Version: 0.7
 
 <details>
   <summary>Change log</summary>
 
+- 0.7: 
+  - Added new AnimNotifies:
+    - AV_AnimNotifyState_BlendOutCharacter
+    - AV_AnimNotifyState_CharacterCapsuleLerp
+  - First iteration of "Asset Batch Actions" Editor Utility Widget
 - 0.6: Added UMG Class:
   - CreateUserWidgetAsync 
 - 0.5: Added StateTree Classes:
@@ -87,6 +92,8 @@ This is a plugin of a module that contains utilities and extensions for the Comm
 This includes small parts taken from the 'CommonGame' and 'UIExtension' plugins from Lyra by Epic Games. Until those plugins are available on Marketplace,
 in which case they will be removed from this repository and used instead.
 
+Current Version: 0.3
+
 <details>
   <summary>Change log</summary>~~~~
 ~~~~
@@ -101,9 +108,16 @@ in which case they will be removed from this repository and used instead.
 
 This is a plugin of a module that contains utilities and extensions for the Gameplay Abilities Plugin.
 
+Current Version: 0.2
+
 <details>
   <summary>Change log</summary>
 
+- 0.2: Added new AnimNotifies:
+  - AV_AnimNotify_ApplyGameplayEffect
+  - AV_AnimNotify_SendGameplayEventToActor
+  - AV_AnimNotify_UpdateGameplayTagASC
+  - AV_AnimNotifyState_AddGameplayTagASC
 - 0.1: Initial Release:
   - Added StateTree Classes:
     - StateTree Condition to check if a Gameplay Tag is present

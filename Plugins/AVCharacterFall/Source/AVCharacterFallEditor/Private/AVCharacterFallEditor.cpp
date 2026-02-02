@@ -53,7 +53,7 @@ void FAVCharacterFallEditorModule::SetupCharacterFallComponentIcon(FSlateStyleSe
 	StyleSet->Set(*CFCIconPropName, CFCIconBrush);
 }
 
-//~ IModuleInterface Begin
+//~ IModuleInterface
 
 void FAVCharacterFallEditorModule::StartupModule()
 {
@@ -63,8 +63,6 @@ void FAVCharacterFallEditorModule::StartupModule()
 void FAVCharacterFallEditorModule::ShutdownModule()
 {
 }
-
-//~ IModuleInterface End
 
 #undef LOCTEXT_NAMESPACE
 
