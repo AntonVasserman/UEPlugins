@@ -19,7 +19,7 @@ struct AVUTILITIES_API FAV_PlayForceFeedbackStateTreeTaskInstanceData
 	TObjectPtr<APlayerController> Controller = nullptr;
 
 	UPROPERTY(EditAnywhere, Category = "Parameter")
-	TObjectPtr<UForceFeedbackEffect> ForceFeedbackEffect = nullptr;
+	TSoftObjectPtr<UForceFeedbackEffect> ForceFeedbackEffect = nullptr;
 
 	UPROPERTY(EditAnywhere, Category = "Parameter")
 	FName ForceFeedbackTag = NAME_None;

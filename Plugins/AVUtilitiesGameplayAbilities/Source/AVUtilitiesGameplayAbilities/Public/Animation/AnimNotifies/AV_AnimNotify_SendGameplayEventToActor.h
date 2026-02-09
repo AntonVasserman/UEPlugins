@@ -7,7 +7,7 @@
 #include "Animation/AnimNotifies/AnimNotify.h"
 #include "AV_AnimNotify_SendGameplayEventToActor.generated.h"
 
-UCLASS()
+UCLASS(Meta = (DisplayName = "Send Gameplay Event to Actor"))
 class AVUTILITIESGAMEPLAYABILITIES_API UAV_AnimNotify_SendGameplayEventToActor : public UAnimNotify
 {
 	GENERATED_BODY()

@@ -17,7 +17,7 @@ EStateTreeRunStatus FAV_PlayForceFeedbackStateTreeTask::EnterState(FStateTreeExe
 {
 	const FInstanceDataType& InstanceData = Context.GetInstanceData(*this);
 
-	if (!IsValid(InstanceData.ForceFeedbackEffect))
+	if (!IsValid(InstanceData.ForceFeedbackEffect.Get()))
 	{
 		return EStateTreeRunStatus::Failed;
 	}
@@ -26,7 +26,7 @@ EStateTreeRunStatus FAV_PlayForceFeedbackStateTreeTask::EnterState(FStateTreeExe
 	Params.Tag = InstanceData.ForceFeedbackTag;
 	Params.bLooping = InstanceData.bLoop;
 	
-	InstanceData.Controller->ClientPlayForceFeedback(InstanceData.ForceFeedbackEffect, Params);
+	InstanceData.Controller->ClientPlayForceFeedback(InstanceData.ForceFeedbackEffect.LoadSynchronous(), Params);
 	
 	return EStateTreeRunStatus::Succeeded;
 }

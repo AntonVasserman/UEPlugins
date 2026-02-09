@@ -19,6 +19,7 @@ public class AVUtilities : ModuleRules
 				"CoreUObject",
 				"Engine",
 				"GameplayStateTreeModule",
+				"GameplayTags",
 				"StateTreeModule",
 				"Slate",
 				"SlateCore",

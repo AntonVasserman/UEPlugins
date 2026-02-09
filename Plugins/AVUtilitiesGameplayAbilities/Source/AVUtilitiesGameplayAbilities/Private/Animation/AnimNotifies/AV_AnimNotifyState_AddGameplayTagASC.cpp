@@ -9,7 +9,7 @@
 #include "Components/SkeletalMeshComponent.h"
 #include "Misc/DataValidation.h"
 
-//~ UAnimNotify
+//~ UAnimNotifyState
 
 FString UAV_AnimNotifyState_AddGameplayTagASC::GetNotifyName_Implementation() const
 {

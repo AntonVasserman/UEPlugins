@@ -6,7 +6,6 @@
 #include "Animation/AnimInstance.h"
 #include "Animation/AnimMontage.h"
 #include "Components/SkeletalMeshComponent.h"
-#include "GameFramework/Character.h"
 
 FAV_PlayAnimMontageStateTreeTask::FAV_PlayAnimMontageStateTreeTask()
 {
@@ -19,17 +18,19 @@ EStateTreeRunStatus FAV_PlayAnimMontageStateTreeTask::EnterState(FStateTreeExecu
 {
 	const FInstanceDataType& InstanceData = Context.GetInstanceData(*this);
 	
-	UAnimInstance* AnimInstance = InstanceData.Character->GetMesh()->GetAnimInstance();
+	UAnimInstance* AnimInstance = InstanceData.SkeletalMeshComponent->GetAnimInstance();
 	
-	if (!IsValid(InstanceData.AnimMontage))
+	if (!IsValid(InstanceData.AnimMontage.Get()))
 	{
 		return EStateTreeRunStatus::Failed;
 	}
+
+	UAnimMontage* AnimMontageLoaded = InstanceData.AnimMontage.LoadSynchronous();
 	
-	AnimInstance->Montage_Play(InstanceData.AnimMontage);
+	AnimInstance->Montage_Play(AnimMontageLoaded);
 	if (InstanceData.bJumpToSection)
 	{
-		AnimInstance->Montage_JumpToSection(InstanceData.SectionName, InstanceData.AnimMontage);
+		AnimInstance->Montage_JumpToSection(InstanceData.SectionName, AnimMontageLoaded);
 	}
 
 	return EStateTreeRunStatus::Succeeded;

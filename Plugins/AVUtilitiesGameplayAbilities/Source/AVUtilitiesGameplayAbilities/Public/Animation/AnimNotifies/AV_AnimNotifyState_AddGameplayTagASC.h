@@ -22,12 +22,12 @@ class AVUTILITIESGAMEPLAYABILITIES_API UAV_AnimNotifyState_AddGameplayTagASC : p
 	UPROPERTY(EditAnywhere, Category = "Config|AnimNotify")
 	bool bRemoveOnExit = false;
 	
-	//~ UAnimNotify Begin
+	//~ UAnimNotifyState Begin
 public:
 	virtual FString GetNotifyName_Implementation() const override;
 	virtual void NotifyBegin(USkeletalMeshComponent* MeshComp, UAnimSequenceBase* Animation, float TotalDuration, const FAnimNotifyEventReference& EventReference) override;
 	virtual void NotifyEnd(USkeletalMeshComponent* MeshComp, UAnimSequenceBase* Animation, const FAnimNotifyEventReference& EventReference) override;
 #if WITH_EDITOR
 	virtual EDataValidationResult IsDataValid(FDataValidationContext& Context) const override;
-#endif // WITH_EDITOR 
+#endif // WITH_EDITOR
 };

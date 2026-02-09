@@ -23,8 +23,6 @@ This Component provides two main functionalities:
 1. Executing certain tasks when entering/exiting certain fall height thresholds.
 2. Executing certain tasks upon landing with from a certain fall height.
 
-Current Version: 1.2
-
 <details>
   <summary>Change log</summary>
 
@@ -37,8 +35,6 @@ Current Version: 1.2
 ## AV Level Prototyping (AVLevelPrototyping)
 
 This is a plugin containing assets used for Level Prototyping that I use across all my personal projects.
-
-Current Version: 0.6
 
 <details>
   <summary>Change log</summary>
@@ -59,11 +55,15 @@ Current Version: 0.6
 
 This is a plugin of a module that contains all my shared code that will be used across all my personal projects.
 
-Current Version: 0.7
-
 <details>
   <summary>Change log</summary>
 
+- 0.9:
+  - StateTree Task to provide the Skeletal Mesh Component
+  - Updated Play AnimMontage StateTree Task to use the Skeletal Mesh Component
+- 0.8: Added new StateTree classes:
+  - StateTree Condition to check if two Gameplay Tags are equal
+  - StateTree Task to Spawn Sound at Location
 - 0.7: 
   - Added new AnimNotifies:
     - AV_AnimNotifyState_BlendOutCharacter
@@ -92,8 +92,6 @@ This is a plugin of a module that contains utilities and extensions for the Comm
 This includes small parts taken from the 'CommonGame' and 'UIExtension' plugins from Lyra by Epic Games. Until those plugins are available on Marketplace,
 in which case they will be removed from this repository and used instead.
 
-Current Version: 0.3
-
 <details>
   <summary>Change log</summary>~~~~
 ~~~~
@@ -108,11 +106,12 @@ Current Version: 0.3
 
 This is a plugin of a module that contains utilities and extensions for the Gameplay Abilities Plugin.
 
-Current Version: 0.2
-
 <details>
   <summary>Change log</summary>
 
+- 0.3:
+  - Anim Notify State to Send Gameplay Events to Sweeped actors
+  - Removed StateTree Evaluator for Ability System Component in favor of a Global StateTree Task
 - 0.2: Added new AnimNotifies:
   - AV_AnimNotify_ApplyGameplayEffect
   - AV_AnimNotify_SendGameplayEventToActor

@@ -6,8 +6,8 @@
 #include "StateTreeTaskBase.h"
 #include "AV_PlayAnimMontageStateTreeTask.generated.h"
 
-class ACharacter;
 class UAnimMontage;
+class USkeletalMeshComponent;
 
 USTRUCT()
 struct AVUTILITIES_API FAV_PlayAnimMontageStateTreeTaskInstanceData
@@ -15,10 +15,10 @@ struct AVUTILITIES_API FAV_PlayAnimMontageStateTreeTaskInstanceData
 	GENERATED_BODY()
 	
 	UPROPERTY(EditAnywhere, Category = "Context")
-	TObjectPtr<ACharacter> Character;
+	TObjectPtr<USkeletalMeshComponent> SkeletalMeshComponent;
 
 	UPROPERTY(EditAnywhere, Category = "Parameter")
-	TObjectPtr<UAnimMontage> AnimMontage = nullptr;
+	TSoftObjectPtr<UAnimMontage> AnimMontage = nullptr;
 
 	UPROPERTY(EditAnywhere, Category = "Parameter", Meta = (EditCondition = "AnimMontage != nullptr", EditConditionHides))
 	bool bJumpToSection = false;
@@ -41,6 +41,8 @@ struct AVUTILITIES_API FAV_PlayAnimMontageStateTreeTask : public FStateTreeTaskC
 	virtual EStateTreeRunStatus EnterState(FStateTreeExecutionContext& Context, const FStateTreeTransitionResult& Transition) const override;
 
 #if WITH_EDITOR
+	virtual FName GetIconName() const override { return FName("Node.Animation"); }
+	virtual FColor GetIconColor() const override { return UE::StateTree::Colors::Magenta; }
 	virtual FText GetDescription(const FGuid& ID, FStateTreeDataView InstanceDataView, const IStateTreeBindingLookup& BindingLookup, EStateTreeNodeFormatting Formatting = EStateTreeNodeFormatting::Text) const override;
 #endif // WITH_EDITOR
 };
