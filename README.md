@@ -93,14 +93,13 @@ This includes small parts taken from the 'CommonGame' and 'UIExtension' plugins 
 in which case they will be removed from this repository and used instead.
 
 <details>
-  <summary>Change log</summary>~~~~
-~~~~
+  <summary>Change log</summary>
 - 0.3: [TODO] Added content from 'UIExtension' plugin from Lyra by Epic Games
 - 0.2: Added ConfirmationWidget logic from 'CommonGame' plugin from Lyra by Epic Games
 - 0.1: Initial Release:
   - Added initial and refactored content from the 'CommonGame' plugin from Lyra by Epic Games suitable for single-player games
 
-</details>~~~~
+</details>
 
 ## AV Utilities Library for the Gameplay Abilities Plugin (AVUtilitiesGameplayAbilities)
 
@@ -108,7 +107,7 @@ This is a plugin of a module that contains utilities and extensions for the Game
 
 <details>
   <summary>Change log</summary>
-
+- 0.4: Improvements for Anim Notify State to Send Gameplay Events to Sweeped actors
 - 0.3:
   - Anim Notify State to Send Gameplay Events to Sweeped actors
   - Removed StateTree Evaluator for Ability System Component in favor of a Global StateTree Task
