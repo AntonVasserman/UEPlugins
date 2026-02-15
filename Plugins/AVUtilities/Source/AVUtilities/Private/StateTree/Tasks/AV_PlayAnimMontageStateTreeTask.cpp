@@ -25,12 +25,10 @@ EStateTreeRunStatus FAV_PlayAnimMontageStateTreeTask::EnterState(FStateTreeExecu
 		return EStateTreeRunStatus::Failed;
 	}
 
-	UAnimMontage* AnimMontageLoaded = InstanceData.AnimMontage.LoadSynchronous();
-	
-	AnimInstance->Montage_Play(AnimMontageLoaded);
+	AnimInstance->Montage_Play(InstanceData.AnimMontage);
 	if (InstanceData.bJumpToSection)
 	{
-		AnimInstance->Montage_JumpToSection(InstanceData.SectionName, AnimMontageLoaded);
+		AnimInstance->Montage_JumpToSection(InstanceData.SectionName, InstanceData.AnimMontage);
 	}
 
 	return EStateTreeRunStatus::Succeeded;

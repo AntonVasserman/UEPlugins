@@ -26,7 +26,7 @@ struct AVUTILITIES_API FAV_SkeletalMeshComponentProviderStateTreeTaskInstanceDat
  * This task is responsible for providing a skeletal mesh component to the state tree.
  * It's intended to be used as a Global State Tree Task.
  */
-USTRUCT(Meta = (DisplayName = "Skeletal Mesh Component Provider"))
+USTRUCT(Meta = (DisplayName = "Skeletal Mesh Component Provider", Category = "AVUtils"))
 struct AVUTILITIES_API FAV_SkeletalMeshComponentProviderStateTreeTask : public FStateTreeTaskCommonBase
 {
 	GENERATED_BODY()
@@ -40,7 +40,7 @@ struct AVUTILITIES_API FAV_SkeletalMeshComponentProviderStateTreeTask : public F
 	virtual EStateTreeRunStatus EnterState(FStateTreeExecutionContext& Context, const FStateTreeTransitionResult& Transition) const override;
 	
 #if WITH_EDITOR
-	virtual FName GetIconName() const override { return FName("Node.Find"); }
 	virtual FColor GetIconColor() const override { return UE::StateTree::Colors::Bronze; }
+	virtual FName GetIconName() const override { return FName("EditorStyle|ClassIcon.SkeletalMesh"); }
 #endif // WITH_EDITOR
 };

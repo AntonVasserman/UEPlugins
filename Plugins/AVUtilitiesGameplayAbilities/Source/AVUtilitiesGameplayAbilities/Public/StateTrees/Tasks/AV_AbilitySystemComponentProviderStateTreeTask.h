@@ -18,10 +18,10 @@ struct AVUTILITIESGAMEPLAYABILITIES_API FAV_AbilitySystemComponentProviderStateT
 	UPROPERTY(EditAnywhere, Category = "Context")
 	TObjectPtr<AActor> Actor;
 	
-	UPROPERTY(EditAnywhere, Category = "Outputs")
+	UPROPERTY(EditAnywhere, Category = "Output")
 	TObjectPtr<UAbilitySystemComponent> AbilitySystemComponent = nullptr;
 	
-	UPROPERTY(EditAnywhere, Category = "Parameters")
+	UPROPERTY(EditAnywhere, Category = "Parameter")
 	bool bCheckAbilitySystemComponent = false;
 };
 
@@ -29,7 +29,7 @@ struct AVUTILITIESGAMEPLAYABILITIES_API FAV_AbilitySystemComponentProviderStateT
  * This task is responsible for providing an ability system component to the state tree.
  * It's intended to be used as a Global State Tree Task.
  */
-USTRUCT(Meta = (DisplayName = "Ability System Component Provider"))
+USTRUCT(Meta = (DisplayName = "Ability System Component Provider", Category = "AVUtils|GameplayAbilities"))
 struct AVUTILITIESGAMEPLAYABILITIES_API FAV_AbilitySystemComponentProviderStateTreeTask : public FStateTreeTaskCommonBase
 {
 	GENERATED_BODY()
@@ -43,7 +43,7 @@ struct AVUTILITIESGAMEPLAYABILITIES_API FAV_AbilitySystemComponentProviderStateT
 	virtual EStateTreeRunStatus EnterState(FStateTreeExecutionContext& Context, const FStateTreeTransitionResult& Transition) const override;
 	
 #if WITH_EDITOR
-	virtual FName GetIconName() const override { return FName("Node.Find"); }
 	virtual FColor GetIconColor() const override { return UE::StateTree::Colors::Bronze; }
+	virtual FName GetIconName() const override { return FName("GameplayAbilitiesEditor|ClassIcon.AbilitySystemComponent"); }
 #endif // WITH_EDITOR
 };

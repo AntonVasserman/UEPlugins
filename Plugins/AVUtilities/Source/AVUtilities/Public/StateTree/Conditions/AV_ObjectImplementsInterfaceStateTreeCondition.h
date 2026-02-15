@@ -24,7 +24,7 @@ struct AVUTILITIES_API FAV_ObjectImplementsInterfaceStateTreeConditionInstanceDa
 	bool bInvert = false;
 };
 
-USTRUCT(Meta = (DisplayName = "Object Implements Interface"))
+USTRUCT(Meta = (DisplayName = "Object Implements Interface", Category = "AVUtils"))
 struct AVUTILITIES_API FAV_ObjectImplementsInterfaceStateTreeCondition : public FStateTreeConditionCommonBase
 {
 	GENERATED_BODY()

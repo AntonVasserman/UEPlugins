@@ -18,7 +18,7 @@ struct AVUTILITIES_API FAV_PlayAnimMontageStateTreeTaskInstanceData
 	TObjectPtr<USkeletalMeshComponent> SkeletalMeshComponent;
 
 	UPROPERTY(EditAnywhere, Category = "Parameter")
-	TSoftObjectPtr<UAnimMontage> AnimMontage = nullptr;
+	TObjectPtr<UAnimMontage> AnimMontage = nullptr;
 
 	UPROPERTY(EditAnywhere, Category = "Parameter", Meta = (EditCondition = "AnimMontage != nullptr", EditConditionHides))
 	bool bJumpToSection = false;
@@ -27,7 +27,7 @@ struct AVUTILITIES_API FAV_PlayAnimMontageStateTreeTaskInstanceData
 	FName SectionName = NAME_None;
 };
 
-USTRUCT(Meta = (DisplayName = "Play Anim Montage"))
+USTRUCT(Meta = (DisplayName = "Play Anim Montage", Category = "AVUtils"))
 struct AVUTILITIES_API FAV_PlayAnimMontageStateTreeTask : public FStateTreeTaskCommonBase
 {
 	GENERATED_BODY()
@@ -41,8 +41,7 @@ struct AVUTILITIES_API FAV_PlayAnimMontageStateTreeTask : public FStateTreeTaskC
 	virtual EStateTreeRunStatus EnterState(FStateTreeExecutionContext& Context, const FStateTreeTransitionResult& Transition) const override;
 
 #if WITH_EDITOR
-	virtual FName GetIconName() const override { return FName("Node.Animation"); }
-	virtual FColor GetIconColor() const override { return UE::StateTree::Colors::Magenta; }
 	virtual FText GetDescription(const FGuid& ID, FStateTreeDataView InstanceDataView, const IStateTreeBindingLookup& BindingLookup, EStateTreeNodeFormatting Formatting = EStateTreeNodeFormatting::Text) const override;
+	virtual FName GetIconName() const override { return FName("EditorStyle|ClassIcon.AnimMontage"); }
 #endif // WITH_EDITOR
 };

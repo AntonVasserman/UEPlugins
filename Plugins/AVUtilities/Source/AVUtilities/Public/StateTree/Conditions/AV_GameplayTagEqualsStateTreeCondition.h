@@ -22,7 +22,7 @@ struct AVUTILITIES_API FAV_GameplayTagEqualsStateTreeConditionInstanceData
 	bool bInvert = false;
 };
 
-USTRUCT(Meta = (DisplayName = "Gameplay Tag Equals"))
+USTRUCT(Meta = (DisplayName = "Gameplay Tag Equals", Category = "AVUtils"))
 struct AVUTILITIES_API FAV_GameplayTagEqualsStateTreeCondition : public FStateTreeConditionCommonBase
 {
 	GENERATED_BODY()

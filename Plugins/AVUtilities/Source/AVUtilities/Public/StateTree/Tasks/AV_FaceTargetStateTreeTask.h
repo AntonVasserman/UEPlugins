@@ -30,7 +30,7 @@ struct AVUTILITIES_API FAV_FaceTargetStateTreeTaskInstanceData
 /**
  *  StateTree task to face an AI-Controlled Pawn towards a target (can be an Actor or a Location)
  */
-USTRUCT(Meta = (DisplayName = "Face Target"))
+USTRUCT(Meta = (DisplayName = "Face Target", Category = "AVUtils"))
 struct AVUTILITIES_API FAV_FaceTargetStateTreeTask : public FStateTreeTaskCommonBase
 {
 	GENERATED_BODY()

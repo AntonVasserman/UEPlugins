@@ -15,17 +15,17 @@ struct AVUTILITIESGAMEPLAYABILITIES_API FAV_ApplyGameplayEffectStateTreeTaskInst
 {
 	GENERATED_BODY()
 
-	UPROPERTY(EditAnywhere, Category = "Inputs")
+	UPROPERTY(EditAnywhere, Category = "Input")
 	TObjectPtr<UAbilitySystemComponent> AbilitySystemComponent;
 	
-	UPROPERTY(EditAnywhere, Category = "Parameters")
+	UPROPERTY(EditAnywhere, Category = "Parameter")
 	TSubclassOf<UGameplayEffect> GameplayEffectClass = nullptr;
 
-	UPROPERTY(EditAnywhere, Category = "Parameters", Meta = (EditCondition = "GameplayEffectClass != nullptr", EditConditionHides))
+	UPROPERTY(EditAnywhere, Category = "Parameter", Meta = (EditCondition = "GameplayEffectClass != nullptr", EditConditionHides))
 	float GameplayEffectLevel = 1.f;
 };
 
-USTRUCT(Meta = (DisplayName = "Apply Gameplay Effect"))
+USTRUCT(Meta = (DisplayName = "Apply Gameplay Effect", Category = "AVUtils|GameplayAbilities"))
 struct AVUTILITIESGAMEPLAYABILITIES_API FAV_ApplyGameplayEffectStateTreeTask : public FStateTreeTaskCommonBase
 {
 	GENERATED_BODY()
@@ -40,5 +40,6 @@ struct AVUTILITIESGAMEPLAYABILITIES_API FAV_ApplyGameplayEffectStateTreeTask : p
 
 #if WITH_EDITOR
 	virtual FText GetDescription(const FGuid& ID, FStateTreeDataView InstanceDataView, const IStateTreeBindingLookup& BindingLookup, EStateTreeNodeFormatting Formatting = EStateTreeNodeFormatting::Text) const override;
+	virtual FName GetIconName() const override { return FName("GameplayAbilitiesEditor|ClassIcon.AbilitySystemComponent"); }
 #endif // WITH_EDITOR
 };

@@ -28,7 +28,7 @@ struct FAV_SetRandomFloatStateTreeTaskInstanceData
 /**
  *  StateTree task to calculate a random float value within the specified range
  */
-USTRUCT(Meta = (DisplayName = "Set Random Float"))
+USTRUCT(Meta = (DisplayName = "Set Random Float", Category = "AVUtils"))
 struct FAV_SetRandomFloatStateTreeTask : public FStateTreeTaskCommonBase
 {
 	GENERATED_BODY()

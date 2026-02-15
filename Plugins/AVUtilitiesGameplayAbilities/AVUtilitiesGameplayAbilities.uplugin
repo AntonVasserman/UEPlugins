@@ -1,7 +1,7 @@
 {
 	"FileVersion": 3,
 	"Version": 1,
-	"VersionName": "0.4",
+	"VersionName": "0.5",
 	"FriendlyName": "AVUtilitiesGameplayAbilitiesLibrary",
 	"Description": "This is my personal utilities Library Plugin for the Gameplay Abilities Plugin",
 	"Category": "Other",
@@ -18,12 +18,25 @@
 		{
 			"Name": "AVUtilitiesGameplayAbilities",
 			"Type": "Runtime",
+			"LoadingPhase": "PreDefault"
+		},
+		{
+			"Name": "AVUtilitiesGameplayAbilitiesEditor",
+			"Type": "Editor",
 			"LoadingPhase": "Default"
 		}
 	],
 	"Plugins": [
 		{
 			"Name": "GameplayAbilities",
+			"Enabled": true
+		},
+		{
+			"Name": "GameplayStateTree",
+			"Enabled": true
+		},
+		{
+			"Name": "StateTree",
 			"Enabled": true
 		}
 	]

@@ -58,6 +58,9 @@ This is a plugin of a module that contains all my shared code that will be used 
 <details>
   <summary>Change log</summary>
 
+- 0.10:
+  - All StateTree Condition and Tasks Icon updates
+  - Play AnimMontage State Tree Task removed SoftClassPtr
 - 0.9:
   - StateTree Task to provide the Skeletal Mesh Component
   - Updated Play AnimMontage StateTree Task to use the Skeletal Mesh Component
@@ -94,6 +97,7 @@ in which case they will be removed from this repository and used instead.
 
 <details>
   <summary>Change log</summary>
+
 - 0.3: [TODO] Added content from 'UIExtension' plugin from Lyra by Epic Games
 - 0.2: Added ConfirmationWidget logic from 'CommonGame' plugin from Lyra by Epic Games
 - 0.1: Initial Release:
@@ -107,6 +111,12 @@ This is a plugin of a module that contains utilities and extensions for the Game
 
 <details>
   <summary>Change log</summary>
+
+- 0.5:
+  - All StateTree Condition and Tasks Icon updates
+  - Added new State Tree Tasks:
+    - Activate Gameplay Abilities by Tag
+    - Cancel Gameplay Abilities by Tag
 - 0.4: Improvements for Anim Notify State to Send Gameplay Events to Sweeped actors
 - 0.3:
   - Anim Notify State to Send Gameplay Events to Sweeped actors

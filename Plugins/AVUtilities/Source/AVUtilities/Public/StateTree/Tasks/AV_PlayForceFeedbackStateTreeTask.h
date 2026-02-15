@@ -28,7 +28,7 @@ struct AVUTILITIES_API FAV_PlayForceFeedbackStateTreeTaskInstanceData
 	bool bLoop = false;
 };
 
-USTRUCT(Meta = (DisplayName = "Play Force Feedback"))
+USTRUCT(Meta = (DisplayName = "Play Force Feedback", Category = "AVUtils"))
 struct AVUTILITIES_API FAV_PlayForceFeedbackStateTreeTask : public FStateTreeTaskCommonBase
 {
 	GENERATED_BODY()
@@ -43,5 +43,6 @@ struct AVUTILITIES_API FAV_PlayForceFeedbackStateTreeTask : public FStateTreeTas
 
 #if WITH_EDITOR
 	virtual FText GetDescription(const FGuid& ID, FStateTreeDataView InstanceDataView, const IStateTreeBindingLookup& BindingLookup, EStateTreeNodeFormatting Formatting = EStateTreeNodeFormatting::Text) const override;
+	virtual FName GetIconName() const override { return FName("EditorStyle|ClassIcon.ForceFeedbackEffect"); }
 #endif // WITH_EDITOR
 };
