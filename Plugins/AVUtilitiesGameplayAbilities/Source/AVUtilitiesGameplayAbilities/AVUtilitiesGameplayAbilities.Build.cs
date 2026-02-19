@@ -19,6 +19,7 @@ public class AVUtilitiesGameplayAbilities : ModuleRules
 				"GameplayAbilities",
 				"GameplayStateTreeModule",
 				"GameplayTags",
+				"ModelViewViewModel",
 				"StateTreeModule",
 				"Engine",
 				"Slate",

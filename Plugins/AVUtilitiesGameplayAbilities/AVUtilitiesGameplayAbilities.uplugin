@@ -1,7 +1,7 @@
 {
 	"FileVersion": 3,
 	"Version": 1,
-	"VersionName": "0.5",
+	"VersionName": "0.6",
 	"FriendlyName": "AVUtilitiesGameplayAbilitiesLibrary",
 	"Description": "This is my personal utilities Library Plugin for the Gameplay Abilities Plugin",
 	"Category": "Other",
@@ -33,6 +33,10 @@
 		},
 		{
 			"Name": "GameplayStateTree",
+			"Enabled": true
+		},
+		{
+			"Name": "ModelViewViewModel",
 			"Enabled": true
 		},
 		{

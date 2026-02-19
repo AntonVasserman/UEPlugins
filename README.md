@@ -112,6 +112,10 @@ This is a plugin of a module that contains utilities and extensions for the Game
 <details>
   <summary>Change log</summary>
 
+- 0.6: Added Generic Resource classes:
+  - ResourceAttributeSet
+  - ResourceComponent
+  - ResourceViewModel
 - 0.5:
   - All StateTree Condition and Tasks Icon updates
   - Added new State Tree Tasks:
