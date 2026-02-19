@@ -84,7 +84,7 @@ TArray<FHitResult> UAV_AnimNotifyState_SendGameplayEventsBySweep::PerformSweep(A
 	return Hits;
 }
 
-void UAV_AnimNotifyState_SendGameplayEventsBySweep::SendEvents(AActor* Owner, TArray<FHitResult> Hits) const
+void UAV_AnimNotifyState_SendGameplayEventsBySweep::SendEvents(AActor* Owner, TArray<FHitResult> Hits)
 {
 	const UAbilitySystemComponent* AbilitySystem = UAbilitySystemBlueprintLibrary::GetAbilitySystemComponent(Owner);
 	if (!IsValid(AbilitySystem)) return;
@@ -92,6 +92,7 @@ void UAV_AnimNotifyState_SendGameplayEventsBySweep::SendEvents(AActor* Owner, TA
 	for (FHitResult Hit : Hits)
 	{
 		if (!IsValid(Hit.GetActor())) continue;
+		if (bSingleEventPerHitActor && HitActorsForWhomEventsSent.Contains(Hit.GetActor())) continue;
 		
 		FGameplayEffectContextHandle EffectContext = AbilitySystem->MakeEffectContext();
 		EffectContext.AddHitResult(Hit);
@@ -109,6 +110,11 @@ void UAV_AnimNotifyState_SendGameplayEventsBySweep::SendEvents(AActor* Owner, TA
 		if (GameplayEventTagForHitActor != FGameplayTag::EmptyTag)
 		{
 			UAbilitySystemBlueprintLibrary::SendGameplayEventToActor(Hit.GetActor(), GameplayEventTagForHitActor, Payload);	
+		}
+		
+		if (bSingleEventPerHitActor)
+		{
+			HitActorsForWhomEventsSent.Add(Hit.GetActor());
 		}
 	}
 }
@@ -138,6 +144,13 @@ FString UAV_AnimNotifyState_SendGameplayEventsBySweep::GetNotifyName_Implementat
 	}
 
 	return Name;
+}
+
+void UAV_AnimNotifyState_SendGameplayEventsBySweep::NotifyBegin(USkeletalMeshComponent* MeshComp, UAnimSequenceBase* Animation, float TotalDuration, const FAnimNotifyEventReference& EventReference)
+{
+	Super::NotifyBegin(MeshComp, Animation, TotalDuration, EventReference);
+	
+	HitActorsForWhomEventsSent.Empty();
 }
 
 void UAV_AnimNotifyState_SendGameplayEventsBySweep::NotifyTick(USkeletalMeshComponent* MeshComp, UAnimSequenceBase* Animation, float FrameDeltaTime, const FAnimNotifyEventReference& EventReference)

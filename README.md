@@ -112,6 +112,7 @@ This is a plugin of a module that contains utilities and extensions for the Game
 <details>
   <summary>Change log</summary>
 
+- 0.7: Minor improvement to AnimNotifyState SendGameplayEventsBySweep
 - 0.6: Added Generic Resource classes:
   - ResourceAttributeSet
   - ResourceComponent
