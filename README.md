@@ -39,6 +39,7 @@ This is a plugin containing assets used for Level Prototyping that I use across 
 <details>
   <summary>Change log</summary>
 
+- 0.7: Added more Material colors taken from new Template Projects and Target Static Mesh
 - 0.6: Fixed Object Redirectors
 - 0.5: Upgraded to Unreal Engine 5.7.
 - 0.4: Added 2 Sample Maps
