@@ -7,8 +7,8 @@
 
 #include "AV_Volume.generated.h"
 
-class UAV_VolumeAction;
-class UAV_VolumeFilter;
+class UAV_VolumeActionBase;
+class UAV_VolumeFilterBase;
 class UBoxComponent;
 
 UCLASS(Abstract)
@@ -42,11 +42,11 @@ private:
 	TObjectPtr<UTexture2D> Sprite = nullptr;
 #endif // WITH_EDITORONLY_DATA
 	
-	UPROPERTY(EditDefaultsOnly, Category = "Config|Volume", Meta = (AllowPrivateAccess = "true"))
-	TArray<TObjectPtr<UAV_VolumeFilter>> VolumeFilters;
+	UPROPERTY(EditDefaultsOnly, Category = "Config|Volume", Meta = (AllowPrivateAccess = "true"), Instanced)
+	TArray<TObjectPtr<UAV_VolumeFilterBase>> VolumeFilters;
 	
-	UPROPERTY(EditDefaultsOnly, Category = "Config|Volume", Meta = (AllowPrivateAccess = "true"))
-	TArray<TObjectPtr<UAV_VolumeAction>> VolumeActions;
+	UPROPERTY(EditDefaultsOnly, Category = "Config|Volume", Meta = (AllowPrivateAccess = "true"), Instanced)
+	TArray<TObjectPtr<UAV_VolumeActionBase>> VolumeActions;
 	
 	UFUNCTION()
 	void BoxComponent_OnComponentBeginOverlap(

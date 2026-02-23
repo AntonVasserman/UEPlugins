@@ -5,8 +5,8 @@
 
 #include "AV_CollisionProfileStatics.h"
 #include "Components/BoxComponent.h"
-#include "Engine/AV_VolumeAction.h"
-#include "Engine/AV_VolumeFilter.h"
+#include "Engine/AV_VolumeActionBase.h"
+#include "Engine/AV_VolumeFilterBase.h"
 
 #if WITH_EDITORONLY_DATA
 #include "Components/BillboardComponent.h"
@@ -64,7 +64,7 @@ void AAV_Volume::BoxComponent_OnComponentBeginOverlap(UPrimitiveComponent* Overl
 {
 	bool bShouldExecuteActions = true;
 	
-	for (const UAV_VolumeFilter* VolumeFilter : VolumeFilters)
+	for (const UAV_VolumeFilterBase* VolumeFilter : VolumeFilters)
 	{
 		if (VolumeFilter->Filter(OtherActor, OtherComp) == false)
 		{
@@ -81,7 +81,7 @@ void AAV_Volume::BoxComponent_OnComponentBeginOverlap(UPrimitiveComponent* Overl
 		Context.OtherActor = OtherActor;
 		Context.OtherComp = OtherComp;
 		
-		for (const UAV_VolumeAction* VolumeAction : VolumeActions)
+		for (const UAV_VolumeActionBase* VolumeAction : VolumeActions)
 		{
 			if (IsValid(VolumeAction))
 			{

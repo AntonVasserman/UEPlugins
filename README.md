@@ -59,6 +59,7 @@ This is a plugin of a module that contains all my shared code that will be used 
 <details>
   <summary>Change log</summary>
 
+- 0.12: Fixes to Volume Classes
 - 0.11: Added Basic Volume Class
 - 0.10:
   - All StateTree Condition and Tasks Icon updates
