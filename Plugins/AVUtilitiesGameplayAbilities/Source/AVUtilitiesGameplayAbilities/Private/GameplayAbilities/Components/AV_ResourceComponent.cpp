@@ -29,9 +29,19 @@ void UAV_ResourceComponent::InitializeWithAbilitySystem(UAbilitySystemComponent*
 	
 	checkf(ResourceAttributeSet != nullptr, TEXT("%s: Cannot initialize %s for owner %s, with null ResourceAttributeSet on the ability system."), __FUNCTIONW__, *ResourceAttributeSet.GetClass()->GetName(), *OwningActor->GetName());
 
+	AbilitySystemComponent->AddLooseGameplayTag(ResourceGameplayTags.Full);
 	AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(ResourceAttributeSet->GetValueAttribute()).AddLambda(
 		[this](const FOnAttributeChangeData& Data)
 		{
+			const EAV_ResourceState OldState = EvaluateResourceState(Data.OldValue);
+			const EAV_ResourceState NewState = EvaluateResourceState(Data.NewValue);
+			if (OldState != NewState)
+			{
+				AbilitySystemComponent->RemoveLooseGameplayTag(GetResourceGameplayTag(OldState));
+				AbilitySystemComponent->AddLooseGameplayTag(GetResourceGameplayTag(NewState));
+				ResourceStateChanged(OldState, NewState);
+			}
+			
 			if (ResourceViewModel != nullptr)
 			{
 				ResourceViewModel->SetCurrentValue(Data.NewValue);
@@ -85,5 +95,39 @@ void UAV_ResourceComponent::InitializeViewModel()
 		GlobalViewModelCollection->AddViewModelInstance(NewResourceViewModelContext, NewResourceViewModel);
 		
 		OnResourceViewModelInstantiated.Broadcast(NewResourceViewModel);
+	}
+}
+
+EAV_ResourceState UAV_ResourceComponent::EvaluateResourceState(float Value) const
+{
+	if (Value == 0.f)
+	{
+		return EAV_ResourceState::Depleted;
+	}
+	
+	if (Value == ResourceAttributeSet->GetMaxValue())
+	{
+		return EAV_ResourceState::Full;
+	}
+	
+	const float ValuePercentage = Value / ResourceAttributeSet->GetMaxValue();
+	return ValuePercentage > CriticalSectionThresholdInPercentage ? EAV_ResourceState::Normal : EAV_ResourceState::Critical;
+}
+
+FGameplayTag UAV_ResourceComponent::GetResourceGameplayTag(EAV_ResourceState State) const
+{
+	switch (State)
+	{
+	case EAV_ResourceState::Full:
+		return ResourceGameplayTags.Full;
+	case EAV_ResourceState::Normal:
+		return ResourceGameplayTags.Normal;
+	case EAV_ResourceState::Critical:
+		return ResourceGameplayTags.Critical;
+	case EAV_ResourceState::Depleted:
+		return ResourceGameplayTags.Depleted;
+	default:
+		checkNoEntry();
+		return FGameplayTag();
 	}
 }

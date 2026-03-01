@@ -11,7 +11,7 @@ UCLASS()
 class AVUTILITIESGAMEPLAYABILITIES_API UAV_ResourceViewModel : public UMVVMViewModelBase
 {
 	GENERATED_BODY()
-	
+
 public:
 	UFUNCTION(BlueprintPure, FieldNotify, Category = "GameplayAbilities|Resource")
 	float GetCurrentValue() const { return CurrentValue; }

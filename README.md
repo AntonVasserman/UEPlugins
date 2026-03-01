@@ -59,6 +59,7 @@ This is a plugin of a module that contains all my shared code that will be used 
 <details>
   <summary>Change log</summary>
 
+- 0.13: Added KismetFunctionLibrary with Extended Print String functions
 - 0.12: Fixes to Volume Classes
 - 0.11: Added Basic Volume Class
 - 0.10:
@@ -115,6 +116,7 @@ This is a plugin of a module that contains utilities and extensions for the Game
 <details>
   <summary>Change log</summary>
 
+- 0.8: Added Resource States (Full, Normal, Critical, Depleted)
 - 0.7: Minor improvement to AnimNotifyState SendGameplayEventsBySweep
 - 0.6: Added Generic Resource classes:
   - ResourceAttributeSet

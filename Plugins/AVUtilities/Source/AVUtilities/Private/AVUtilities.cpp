@@ -4,6 +4,8 @@
 
 #define LOCTEXT_NAMESPACE "FAVUtilitiesModule"
 
+DEFINE_LOG_CATEGORY(LogAV);
+
 void FAVUtilitiesModule::StartupModule()
 {
 	// This code will execute after your module is loaded into memory; the exact timing is specified in the .uplugin file per-module

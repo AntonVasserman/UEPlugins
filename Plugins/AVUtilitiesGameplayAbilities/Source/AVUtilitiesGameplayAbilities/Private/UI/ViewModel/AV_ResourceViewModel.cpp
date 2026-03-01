@@ -25,7 +25,7 @@ float UAV_ResourceViewModel::GetValuePercentage() const
 {
 	if (MaxValue == 0.f)
 	{
-		AV_LOG_UTILSGAS(Warning, "MaxValue is 0. Returning 0!");
+		AV_LOG_UTILSGAS_EXTENDED(Warning, "MaxValue is 0. Returning 0!");
 		return 0.f;
 	}
 
