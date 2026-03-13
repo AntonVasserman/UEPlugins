@@ -20,14 +20,14 @@ void UAV_ResourceComponent::InitializeWithAbilitySystem(UAbilitySystemComponent*
 {
 	const AActor* OwningActor = GetOwner();
 	check(OwningActor);
-	checkf(AbilitySystemComponent == nullptr, TEXT("%s: %s for owner %s has already been initialized with an ability system"), __FUNCTIONW__, *ResourceAttributeSet.GetClass()->GetName(), *OwningActor->GetName());
-	checkf(InAbilitySystemComponent != nullptr, TEXT("%s: Cannot initialize %s for owner %s, with null input ability system!"), __FUNCTIONW__, *ResourceAttributeSet.GetClass()->GetName(), *OwningActor->GetName());
+	checkf(AbilitySystemComponent == nullptr, TEXT("%hs: %s for owner %s has already been initialized with an ability system"), __FUNCTION__, *ResourceAttributeSet.GetClass()->GetName(), *OwningActor->GetName());
+	checkf(InAbilitySystemComponent != nullptr, TEXT("%hs: Cannot initialize %s for owner %s, with null input ability system!"), __FUNCTION__, *ResourceAttributeSet.GetClass()->GetName(), *OwningActor->GetName());
 	
 	AbilitySystemComponent = InAbilitySystemComponent;
-	checkf(ResourceAttributeSetClass != nullptr, TEXT("%s: Cannot initialize %s for owner %s, because ResourceAttributeSetClass is not set!"), __FUNCTIONW__, *ResourceAttributeSet.GetClass()->GetName(), *OwningActor->GetName());
+	checkf(ResourceAttributeSetClass != nullptr, TEXT("%hs: Cannot initialize %s for owner %s, because ResourceAttributeSetClass is not set!"), __FUNCTION__, *ResourceAttributeSet.GetClass()->GetName(), *OwningActor->GetName());
 	ResourceAttributeSet = Cast<UAV_ResourceAttributeSet>(AbilitySystemComponent->GetAttributeSet(ResourceAttributeSetClass));
 	
-	checkf(ResourceAttributeSet != nullptr, TEXT("%s: Cannot initialize %s for owner %s, with null ResourceAttributeSet on the ability system."), __FUNCTIONW__, *ResourceAttributeSet.GetClass()->GetName(), *OwningActor->GetName());
+	checkf(ResourceAttributeSet != nullptr, TEXT("%hs: Cannot initialize %s for owner %s, with null ResourceAttributeSet on the ability system."), __FUNCTION__, *ResourceAttributeSet.GetClass()->GetName(), *OwningActor->GetName());
 
 	AbilitySystemComponent->AddLooseGameplayTag(ResourceGameplayTags.Full);
 	AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(ResourceAttributeSet->GetValueAttribute()).AddLambda(
@@ -40,6 +40,7 @@ void UAV_ResourceComponent::InitializeWithAbilitySystem(UAbilitySystemComponent*
 				AbilitySystemComponent->RemoveLooseGameplayTag(GetResourceGameplayTag(OldState));
 				AbilitySystemComponent->AddLooseGameplayTag(GetResourceGameplayTag(NewState));
 				ResourceStateChanged(OldState, NewState);
+				OnResourceStateChanged.Broadcast(OldState, NewState);
 			}
 			
 			if (ResourceViewModel != nullptr)

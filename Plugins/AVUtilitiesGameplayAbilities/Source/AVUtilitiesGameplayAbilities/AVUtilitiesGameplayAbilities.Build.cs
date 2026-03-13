@@ -16,9 +16,11 @@ public class AVUtilitiesGameplayAbilities : ModuleRules
 			{
 				"Core",
 				"CoreUObject",
+				"EnhancedInput",
 				"GameplayAbilities",
 				"GameplayStateTreeModule",
 				"GameplayTags",
+				"GameplayTasks",
 				"ModelViewViewModel",
 				"StateTreeModule",
 				"Engine",

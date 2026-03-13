@@ -32,12 +32,12 @@ void UAV_AnimNotify_ApplyGameplayEffect::Notify(USkeletalMeshComponent* MeshComp
 	// If we can't find the Component we won't throw, we will just not apply the effect
 	if (AbilitySystemComponent == nullptr)
 	{
-		UE_LOG(LogAV_UtilitiesGameplayAbilities, Warning, TEXT("Couldn't find AbilitySystemComponent on for Actor: %s"), *Actor->GetFullName());
+		AV_LOG_UTILSGAS_EXTENDED(Warning, "Couldn't find AbilitySystemComponent on for Actor: %s", *Actor->GetFullName());
 		return;
 	}
 
-	checkf(AbilitySystemComponent, TEXT("%s: AbilitySystemComponent uninitialized"), __FUNCTIONW__);
-	checkf(GameplayEffectClass, TEXT("%s: GameplayEffectClass uninitialized"), *GetClass()->GetName(), __FUNCTIONW__);
+	checkf(AbilitySystemComponent, TEXT("%hs: AbilitySystemComponent uninitialized"), __FUNCTION__);
+	checkf(GameplayEffectClass, TEXT("%s::%hs: GameplayEffectClass uninitialized"), *GetClass()->GetName(), __FUNCTION__);
 
 	const FGameplayEffectContextHandle ContextHandle = AbilitySystemComponent->MakeEffectContext();
 	const FGameplayEffectSpecHandle SpecHandle = AbilitySystemComponent->MakeOutgoingSpec(GameplayEffectClass, GameplayEffectLevel, ContextHandle);

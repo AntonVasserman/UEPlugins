@@ -23,6 +23,8 @@ enum class EAV_ResourceState : uint8
 	Depleted	UMETA(DisplayName = "Depleted"),
 };
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FAV_OnResourceStateChangedDelegate, EAV_ResourceState, OldState, EAV_ResourceState, NewState);
+
 USTRUCT(BlueprintType)
 struct FAV_ResourceGameplayTags
 {
@@ -54,6 +56,9 @@ public:
 
 	UPROPERTY(BlueprintAssignable)
 	FAV_OnResourceValueChangedDelegate OnResourceValueChanged;
+	
+	UPROPERTY(BlueprintAssignable)
+	FAV_OnResourceStateChangedDelegate OnResourceStateChanged;
 	
 	UFUNCTION(BlueprintCallable, Category = "Resource")
 	virtual void InitializeWithAbilitySystem(UAbilitySystemComponent* InAbilitySystemComponent);

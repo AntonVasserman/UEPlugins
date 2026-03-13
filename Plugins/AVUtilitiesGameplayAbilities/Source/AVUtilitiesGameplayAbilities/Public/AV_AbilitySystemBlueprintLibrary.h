@@ -11,7 +11,7 @@
 class APawn;
 class UGameplayAbility;
 
-UCLASS(Meta = (ScriptName="AbilitySystemLibrary"))
+UCLASS(Meta = (ScriptName = "AbilitySystemLibrary"))
 class AVUTILITIESGAMEPLAYABILITIES_API UAV_AbilitySystemBlueprintLibrary : public UBlueprintFunctionLibrary
 {
 	GENERATED_BODY()

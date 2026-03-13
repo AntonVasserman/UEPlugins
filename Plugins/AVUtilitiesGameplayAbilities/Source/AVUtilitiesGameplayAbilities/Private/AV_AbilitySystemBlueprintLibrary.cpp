@@ -13,7 +13,7 @@ APawn* UAV_AbilitySystemBlueprintLibrary::GetAvatarPawnFromAbility(const UGamepl
 	{
 		if (bChecked)
 		{
-			checkf(false, TEXT("%s: Ability is null"), __FUNCTIONW__);
+			checkf(false, TEXT("%hs: Ability is null"), __FUNCTION__);
 		}
 		
 		return nullptr;
@@ -34,7 +34,7 @@ APawn* UAV_AbilitySystemBlueprintLibrary::GetAvatarPawnFromAbility(const UGamepl
 
 	if (bChecked)
 	{
-		checkf(false, TEXT("%s: AvatarPawn (%s) is not of class %s"), __FUNCTIONW__, *GetNameSafe(Pawn), *GetNameSafe(PawnClass.Get()));
+		checkf(false, TEXT("%hs: AvatarPawn (%s) is not of class %s"), __FUNCTION__, *GetNameSafe(Pawn), *GetNameSafe(PawnClass.Get()));
 	}
 
 	return nullptr;

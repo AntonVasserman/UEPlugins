@@ -75,3 +75,8 @@ Plugins/*/Intermediate/*
 
 # Cache files for the editor to use
 DerivedDataCache/*
+
+# Work in Progress folders
+# Those are used for classes I'm currently working on locally and aren't yet ready to push into the plugin
+Plugins/AVUtilitiesGameplayAbilities/Source/AVUtilitiesGameplayAbilities/Private/WIP
+Plugins/AVUtilitiesGameplayAbilities/Source/AVUtilitiesGameplayAbilities/Public/WIP

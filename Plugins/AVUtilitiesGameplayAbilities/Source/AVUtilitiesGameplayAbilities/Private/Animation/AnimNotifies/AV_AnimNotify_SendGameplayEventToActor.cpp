@@ -9,6 +9,8 @@
 #include "Components/SkeletalMeshComponent.h"
 #include "Misc/DataValidation.h"
 
+//~ UAnimNotify
+
 FString UAV_AnimNotify_SendGameplayEventToActor::GetNotifyName_Implementation() const
 {
 	return FString::Printf(TEXT("Send Gameplay Event to Actor with Tag: %s"), *EventTag.ToString());
@@ -24,16 +26,18 @@ void UAV_AnimNotify_SendGameplayEventToActor::Notify(USkeletalMeshComponent* Mes
 	// If we can't find the Component we won't throw, we will just not apply the effect
 	if (AbilitySystemComponent == nullptr)
 	{
-		UE_LOG(LogAV_UtilitiesGameplayAbilities, Warning, TEXT("Couldn't find AbilitySystemComponent on for Actor: %s"), *Actor->GetFullName());
+		AV_LOG_UTILSGAS_EXTENDED(Warning, "Couldn't find AbilitySystemComponent on for Actor: %s", *Actor->GetFullName());
 		return;
 	}
 
-	checkf(AbilitySystemComponent, TEXT("%s: AbilitySystemComponent uninitialized"), __FUNCTIONW__);
+	checkf(AbilitySystemComponent, TEXT("%hs: AbilitySystemComponent uninitialized"), __FUNCTION__);
 	
 	FGameplayEventData Payload;
 	Payload.Instigator = AbilitySystemComponent->GetAvatarActor();
 	UAbilitySystemBlueprintLibrary::SendGameplayEventToActor(Actor, EventTag, Payload);
 }
+
+//~ UObject
 
 #if WITH_EDITOR
 EDataValidationResult UAV_AnimNotify_SendGameplayEventToActor::IsDataValid(FDataValidationContext& Context) const

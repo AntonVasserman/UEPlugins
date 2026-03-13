@@ -39,6 +39,7 @@ This is a plugin containing assets used for Level Prototyping that I use across 
 <details>
   <summary>Change log</summary>
 
+- 0.8: Removed usage of non cross-platform \_\_FUNCTIONW\_\_ macro
 - 0.7: Added more Material colors taken from new Template Projects and Target Static Mesh
 - 0.6: Fixed Object Redirectors
 - 0.5: Upgraded to Unreal Engine 5.7.
@@ -59,6 +60,8 @@ This is a plugin of a module that contains all my shared code that will be used 
 <details>
   <summary>Change log</summary>
 
+- 0.15: Added MathLibrary and AnimNotify_SimulatePhysics
+- 0.14: Removed usage of non cross-platform \_\_FUNCTIONW\_\_ macro
 - 0.13: Added KismetFunctionLibrary with Extended Print String functions
 - 0.12: Fixes to Volume Classes
 - 0.11: Added Basic Volume Class
@@ -116,6 +119,10 @@ This is a plugin of a module that contains utilities and extensions for the Game
 <details>
   <summary>Change log</summary>
 
+- 0.9: 
+  - Removed usage of non cross-platform \_\_FUNCTIONW\_\_ macro 
+  - Added AbilitySet
+  - Added ResourceStateChanged delegate
 - 0.8: Added Resource States (Full, Normal, Critical, Depleted)
 - 0.7: Minor improvement to AnimNotifyState SendGameplayEventsBySweep
 - 0.6: Added Generic Resource classes:
