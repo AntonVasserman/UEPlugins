@@ -76,6 +76,9 @@ Plugins/*/Intermediate/*
 # Cache files for the editor to use
 DerivedDataCache/*
 
+# This is the packaged plugins, unfortunately they are too big for GitHub but I'm still keeping them locally
+PluginsPackaged/* 
+
 # Work in Progress folders
 # Those are used for classes I'm currently working on locally and aren't yet ready to push into the plugin
 Plugins/AVUtilitiesGameplayAbilities/Source/AVUtilitiesGameplayAbilities/Private/WIP
