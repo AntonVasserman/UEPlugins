@@ -30,6 +30,7 @@ class AVUTILITIESGAMEPLAYABILITIES_API UAV_AnimNotify_UpdateGameplayTagASC : pub
 public:
 	virtual FString GetNotifyName_Implementation() const override;
 	virtual void Notify(USkeletalMeshComponent* MeshComp, UAnimSequenceBase* Animation, const FAnimNotifyEventReference& EventReference) override;
+	//~ UObject
 #if WITH_EDITOR
 	virtual EDataValidationResult IsDataValid(FDataValidationContext& Context) const override;
 #endif // WITH_EDITOR

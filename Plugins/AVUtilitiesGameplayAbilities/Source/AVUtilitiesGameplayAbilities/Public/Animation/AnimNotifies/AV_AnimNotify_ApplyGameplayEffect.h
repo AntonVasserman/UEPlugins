@@ -9,17 +9,15 @@
 
 #include "AV_AnimNotify_ApplyGameplayEffect.generated.h"
 
-class UGameplayEffect;
-
 UCLASS(Meta = (DisplayName = "Apply Gameplay Effect"))
 class AVUTILITIESGAMEPLAYABILITIES_API UAV_AnimNotify_ApplyGameplayEffect : public UAnimNotify
 {
 	GENERATED_BODY()
 	
-	UPROPERTY(EditDefaultsOnly, Category = "Config|AnimNotify")
+	UPROPERTY(EditAnywhere, Category = "Config|AnimNotify")
 	TSubclassOf<UGameplayEffect> GameplayEffectClass = nullptr;
 
-	UPROPERTY(EditDefaultsOnly, Category = "Config|AnimNotify", Meta = (EditCondition = "GameplayEffectClass != nullptr", EditConditionHides))
+	UPROPERTY(EditAnywhere, Category = "Config|AnimNotify", Meta = (EditCondition = "GameplayEffectClass != nullptr", EditConditionHides))
 	float GameplayEffectLevel = 1.f;
 	
 	//~ UAnimNotify

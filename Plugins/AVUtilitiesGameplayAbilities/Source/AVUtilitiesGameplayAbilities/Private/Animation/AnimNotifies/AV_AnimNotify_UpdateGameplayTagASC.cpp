@@ -7,7 +7,10 @@
 #include "AbilitySystemComponent.h"
 #include "AVUtilitiesGameplayAbilities.h"
 #include "Components/SkeletalMeshComponent.h"
+
+#if WITH_EDITOR
 #include "Misc/DataValidation.h"
+#endif // WITH_EDITOR
 
 //~ UAnimNotify
 
@@ -45,6 +48,8 @@ void UAV_AnimNotify_UpdateGameplayTagASC::Notify(USkeletalMeshComponent* MeshCom
 		break;
 	}
 }
+
+//~ UObject
 
 #if WITH_EDITOR
 EDataValidationResult UAV_AnimNotify_UpdateGameplayTagASC::IsDataValid(FDataValidationContext& Context) const

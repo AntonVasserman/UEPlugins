@@ -5,89 +5,24 @@
 
 #include "AbilitySystemBlueprintLibrary.h"
 #include "AbilitySystemComponent.h"
-#include "Engine.h"
-#include "KismetTraceUtils.h"
+#include "AVUtilitiesGameplayAbilities.h"
 #include "Animation/AnimSequenceBase.h"
 #include "Components/SkeletalMeshComponent.h"
 #include "Engine/World.h"
-#include "Kismet/KismetSystemLibrary.h"
+
 #if WITH_EDITOR
 #include "Misc/DataValidation.h"
 #endif // WITH_EDITOR
 
-TArray<FHitResult> UAV_AnimNotifyState_SendGameplayEventsBySweep::PerformSweep(AActor* Owner, USkeletalMeshComponent* MeshComp) const
-{
-	TArray<FHitResult> Hits;
-	
-	// Check that Engine and World are valid
-	if (!IsValid(GEngine)) return Hits;
-	const UWorld* World = GEngine->GetWorldFromContextObject(Owner, EGetWorldErrorMode::LogAndReturnNull);
-	if (!IsValid(World)) return Hits;
-	
-	const FTransform SocketTransform = MeshComp->GetSocketTransform(SocketName);
-	const FVector Start = SocketTransform.GetLocation();
-	const FVector ExtendedSocketDirection = SocketTransform.GetRotation().GetForwardVector() * SocketExtensionOffset;
-	const FVector End = Start - ExtendedSocketDirection;
-	
-	FCollisionShape CollisionShape;
-	switch (CollisionShapeType)
-	{
-	case EAV_CollisionShapeType::Line:
-		break;
-	case EAV_CollisionShapeType::Box:
-		CollisionShape = FCollisionShape::MakeBox(BoxHalfExtent);
-		break;
-	case EAV_CollisionShapeType::Sphere:
-		CollisionShape = FCollisionShape::MakeSphere(SphereRadius);
-		break;
-	case EAV_CollisionShapeType::Capsule:
-		CollisionShape = FCollisionShape::MakeCapsule(CapsuleRadius, CapsuleHalfHeight);
-		break;
-	default:
-		checkNoEntry();
-	}
-	
-	FCollisionQueryParams Params;
-	Params.AddIgnoredActor(Owner);
-	
-	FCollisionResponseParams ResponseParams;
-	ResponseParams.CollisionResponse.SetAllChannels(ECR_Ignore);
-	for (ECollisionChannel CollisionChannel : CollisionChannelsToSweep)
-	{
-		ResponseParams.CollisionResponse.SetResponse(CollisionChannel, ECR_Block);	
-	}
-	
-	bool const bHit = World->SweepMultiByChannel(Hits, Start, End, FQuat::Identity, TraceChannel, CollisionShape, Params, ResponseParams);
-	if (bDrawDebugs)
-	{
-#if ENABLE_DRAW_DEBUG
-		switch (CollisionShapeType)
-		{
-		case EAV_CollisionShapeType::Line:
-			DrawDebugLineTraceMulti(World, Start, End, EDrawDebugTrace::ForDuration, bHit, Hits, FColor::Red, FColor::Green, 5.f);
-			break;
-		case EAV_CollisionShapeType::Box:
-			DrawDebugBoxTraceMulti(World, Start, End, BoxHalfExtent, FQuat::Identity.Rotator(), EDrawDebugTrace::ForDuration, bHit, Hits, FColor::Red, FColor::Green, 5.f);
-			break;
-		case EAV_CollisionShapeType::Sphere:
-			DrawDebugSphereTraceMulti(World, Start, End, SphereRadius, EDrawDebugTrace::ForDuration, bHit, Hits, FColor::Red, FColor::Green, 5.f);
-			break;
-		case EAV_CollisionShapeType::Capsule:
-			DrawDebugCapsuleTraceMulti(World, Start, End, CapsuleRadius, CapsuleHalfHeight, FQuat::Identity.Rotator(), EDrawDebugTrace::ForDuration, bHit, Hits, FColor::Red, FColor::Green, 5.f);
-			break;
-		default:
-			checkNoEntry();
-		}
-#endif
-	}
-	
-	return Hits;
-}
-
 void UAV_AnimNotifyState_SendGameplayEventsBySweep::SendEvents(AActor* Owner, TArray<FHitResult> Hits)
 {
+	// If we can't find the Ability Component we won't throw, we will just not send events
 	const UAbilitySystemComponent* AbilitySystem = UAbilitySystemBlueprintLibrary::GetAbilitySystemComponent(Owner);
-	if (!IsValid(AbilitySystem)) return;
+	if (!IsValid(AbilitySystem))
+	{
+		AV_LOG_UTILSGAS_EXTENDED(Warning, "Couldn't find AbilitySystemComponent on for Actor: %s", *Owner->GetFullName());
+		return;
+	};
 	
 	for (FHitResult Hit : Hits)
 	{
@@ -123,11 +58,11 @@ void UAV_AnimNotifyState_SendGameplayEventsBySweep::SendEvents(AActor* Owner, TA
 FString UAV_AnimNotifyState_SendGameplayEventsBySweep::GetNotifyName_Implementation() const
 {
 	const UEnum* ChannelEnum = StaticEnum<ECollisionChannel>();
-	const FString TraceString = ChannelEnum ? ChannelEnum->GetNameStringByValue(TraceChannel) : TEXT("UnknownTrace");
+	const FString TraceString = ChannelEnum ? ChannelEnum->GetNameStringByValue(SweepParams.TraceChannel) : TEXT("UnknownTrace");
 
 	TArray<FString> CollisionStrings;
-	CollisionStrings.Reserve(CollisionChannelsToSweep.Num());
-	for (const ECollisionChannel CollisionChannel : CollisionChannelsToSweep)
+	CollisionStrings.Reserve(SweepParams.CollisionChannelsToSweep.Num());
+	for (const ECollisionChannel CollisionChannel : SweepParams.CollisionChannelsToSweep)
 	{
 		CollisionStrings.Add(ChannelEnum ? ChannelEnum->GetNameStringByValue(CollisionChannel) : TEXT("UnknownChannel"));
 	}
@@ -161,9 +96,18 @@ void UAV_AnimNotifyState_SendGameplayEventsBySweep::NotifyTick(USkeletalMeshComp
 	AActor* Owner = MeshComp->GetOwner();
 	if (!IsValid(Owner)) return;
 	
-	const TArray<FHitResult> Hits = PerformSweep(Owner, MeshComp);
+	const TArray<FHitResult> Hits = UAV_UtilitiesGameplayAbilitiesStatics::PerformSweep(Owner, MeshComp, SweepParams);
+	
+	// Sweep for debugging purposes but don't run actual logic inside the editor...
+	if (!IsValid(MeshComp->GetWorld()) || !MeshComp->GetWorld()->IsGameWorld())
+	{
+		return;
+	}
+	
 	SendEvents(Owner, Hits);
 }
+
+//~ UObject
 
 #if WITH_EDITOR
 

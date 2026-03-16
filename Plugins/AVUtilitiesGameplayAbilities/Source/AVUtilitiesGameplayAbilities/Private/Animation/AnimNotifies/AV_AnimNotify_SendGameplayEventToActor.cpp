@@ -7,7 +7,10 @@
 #include "AbilitySystemComponent.h"
 #include "AVUtilitiesGameplayAbilities.h"
 #include "Components/SkeletalMeshComponent.h"
+
+#if WITH_EDITOR
 #include "Misc/DataValidation.h"
+#endif // WITH_EDITOR
 
 //~ UAnimNotify
 

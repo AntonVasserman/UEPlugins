@@ -7,7 +7,10 @@
 #include "AbilitySystemComponent.h"
 #include "AVUtilitiesGameplayAbilities.h"
 #include "Components/SkeletalMeshComponent.h"
+
+#if WITH_EDITOR
 #include "Misc/DataValidation.h"
+#endif // WITH_EDITOR
 
 //~ UAnimNotifyState
 
@@ -56,6 +59,8 @@ void UAV_AnimNotifyState_AddGameplayTagASC::NotifyEnd(USkeletalMeshComponent* Me
 		AbilitySystemComponent->RemoveLooseGameplayTag(GameplayTag, Count);
 	}
 }
+
+//~ UObject
 
 #if WITH_EDITOR
 EDataValidationResult UAV_AnimNotifyState_AddGameplayTagASC::IsDataValid(FDataValidationContext& Context) const
