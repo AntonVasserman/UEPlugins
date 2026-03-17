@@ -9,8 +9,8 @@
 
 #include "AV_AnimNotify_ApplyGameplayEffect.generated.h"
 
-UCLASS(Meta = (DisplayName = "Apply Gameplay Effect"))
-class AVUTILITIESGAMEPLAYABILITIES_API UAV_AnimNotify_ApplyGameplayEffect : public UAnimNotify
+UCLASS(Meta = (DisplayName = "Apply Gameplay Effect"), Deprecated)
+class AVUTILITIESGAMEPLAYABILITIES_API UDEPRECATED_AV_AnimNotify_ApplyGameplayEffect : public UAnimNotify
 {
 	GENERATED_BODY()
 	
@@ -24,6 +24,7 @@ class AVUTILITIESGAMEPLAYABILITIES_API UAV_AnimNotify_ApplyGameplayEffect : publ
 public:
 	virtual FString GetNotifyName_Implementation() const override;
 	virtual void Notify(USkeletalMeshComponent* MeshComp, UAnimSequenceBase* Animation, const FAnimNotifyEventReference& EventReference) override;
+	//~ UObject
 #if WITH_EDITOR
 	virtual EDataValidationResult IsDataValid(FDataValidationContext& Context) const override;
 #endif // WITH_EDITOR

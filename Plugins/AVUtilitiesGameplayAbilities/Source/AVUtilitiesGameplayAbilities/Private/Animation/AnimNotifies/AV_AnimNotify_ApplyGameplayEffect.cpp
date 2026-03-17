@@ -14,7 +14,7 @@
 
 //~ UAnimNotify
 
-FString UAV_AnimNotify_ApplyGameplayEffect::GetNotifyName_Implementation() const
+FString UDEPRECATED_AV_AnimNotify_ApplyGameplayEffect::GetNotifyName_Implementation() const
 {
 	FString GameplayEffectClassName = TEXT("None");
 	if (GameplayEffectClass)
@@ -25,7 +25,7 @@ FString UAV_AnimNotify_ApplyGameplayEffect::GetNotifyName_Implementation() const
 	return FString::Printf(TEXT("Try Apply Gameplay Effect: %s at Level: %f"), *GameplayEffectClassName, GameplayEffectLevel);
 }
 
-void UAV_AnimNotify_ApplyGameplayEffect::Notify(USkeletalMeshComponent* MeshComp, UAnimSequenceBase* Animation, const FAnimNotifyEventReference& EventReference)
+void UDEPRECATED_AV_AnimNotify_ApplyGameplayEffect::Notify(USkeletalMeshComponent* MeshComp, UAnimSequenceBase* Animation, const FAnimNotifyEventReference& EventReference)
 {
 	Super::Notify(MeshComp, Animation, EventReference);
 	
@@ -47,8 +47,10 @@ void UAV_AnimNotify_ApplyGameplayEffect::Notify(USkeletalMeshComponent* MeshComp
 	AbilitySystemComponent->ApplyGameplayEffectSpecToTarget(*SpecHandle.Data.Get(), AbilitySystemComponent);
 }
 
+//~ UObject
+
 #if WITH_EDITOR
-EDataValidationResult UAV_AnimNotify_ApplyGameplayEffect::IsDataValid(FDataValidationContext& Context) const
+EDataValidationResult UDEPRECATED_AV_AnimNotify_ApplyGameplayEffect::IsDataValid(FDataValidationContext& Context) const
 {
 	EDataValidationResult Result = Super::IsDataValid(Context);
 
