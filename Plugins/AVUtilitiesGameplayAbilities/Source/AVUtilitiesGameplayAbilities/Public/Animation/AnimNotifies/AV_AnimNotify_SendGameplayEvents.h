@@ -6,15 +6,15 @@
 #include "GameplayTagContainer.h"
 #include "Animation/AnimNotifies/AnimNotify.h"
 
-#include "AV_AnimNotify_SendGameplayEventToActor.generated.h"
+#include "AV_AnimNotify_SendGameplayEvents.generated.h"
 
-UCLASS(Meta = (DisplayName = "(DEPRECATED) Send Gameplay Event to Actor (to Self)"), Deprecated)
-class AVUTILITIESGAMEPLAYABILITIES_API UDEPRECATED_AV_AnimNotify_SendGameplayEventToActor : public UAnimNotify
+UCLASS(Meta = (DisplayName = "Send Gameplay Events (to Self)"))
+class AVUTILITIESGAMEPLAYABILITIES_API UAV_AnimNotify_SendGameplayEvents : public UAnimNotify
 {
 	GENERATED_BODY()
 	
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Config|AnimNotify", Meta = (AllowPrivateAccess = "true"))
-	FGameplayTag EventTag;
+	TArray<FGameplayTag> EventTags;
 	
 	//~ UAnimNotify
 public:

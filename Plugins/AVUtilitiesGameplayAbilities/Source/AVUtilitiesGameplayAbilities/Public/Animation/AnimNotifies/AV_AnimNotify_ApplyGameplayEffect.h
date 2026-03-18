@@ -9,7 +9,7 @@
 
 #include "AV_AnimNotify_ApplyGameplayEffect.generated.h"
 
-UCLASS(Meta = (DisplayName = "Apply Gameplay Effect"), Deprecated)
+UCLASS(Meta = (DisplayName = "(DEPRECATED) Apply Gameplay Effect"), Deprecated)
 class AVUTILITIESGAMEPLAYABILITIES_API UDEPRECATED_AV_AnimNotify_ApplyGameplayEffect : public UAnimNotify
 {
 	GENERATED_BODY()

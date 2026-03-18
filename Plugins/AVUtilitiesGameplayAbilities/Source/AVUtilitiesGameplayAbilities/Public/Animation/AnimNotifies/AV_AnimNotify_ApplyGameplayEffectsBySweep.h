@@ -3,20 +3,23 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "AV_UtilitiesGameplayAbilitiesStatics.h"
 #include "Animation/AnimNotifies/AnimNotify.h"
-#include "Templates/SubclassOf.h"
 
-#include "AV_AnimNotify_ApplyGameplayEffects.generated.h"
+#include "AV_AnimNotify_ApplyGameplayEffectsBySweep.generated.h"
 
-struct FAV_AnimNotifyGameplayEffectPayload;
-
-UCLASS(Meta = (DisplayName = "Apply Gameplay Effects (to Self)"))
-class AVUTILITIESGAMEPLAYABILITIES_API UAV_AnimNotify_ApplyGameplayEffects : public UAnimNotify
+UCLASS(Meta = (DisplayName = "Apply Gameplay Effects By Sweep"))
+class AVUTILITIESGAMEPLAYABILITIES_API UAV_AnimNotify_ApplyGameplayEffectsBySweep : public UAnimNotify
 {
 	GENERATED_BODY()
 	
 	UPROPERTY(EditAnywhere, Category = "Config|AnimNotify")
 	TArray<FAV_AnimNotifyGameplayEffectPayload> GameplayEffects;
+	
+	UPROPERTY(EditAnywhere, Category = "Config|AnimNotify", Meta = (DisplayName = "Sweep"))
+	FAV_SweepParams SweepParams;
+	
+	void ApplyEffects(AActor* Owner, TArray<FHitResult> Hits);
 	
 	//~ UAnimNotify
 public:

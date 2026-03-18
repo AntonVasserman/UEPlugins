@@ -6,6 +6,7 @@
 #include "AbilitySystemBlueprintLibrary.h"
 #include "AbilitySystemComponent.h"
 #include "AVUtilitiesGameplayAbilities.h"
+#include "AV_UtilitiesGameplayAbilitiesStatics.h"
 #include "Components/SkeletalMeshComponent.h"
 #include "Engine/World.h"
 
@@ -42,7 +43,7 @@ void UAV_AnimNotify_ApplyGameplayEffects::Notify(USkeletalMeshComponent* MeshCom
 	
 	for (int i = 0; i < GameplayEffects.Num(); ++i)
 	{
-		const FAV_AnimNotify_ApplyGameplayEffects_GameplayEffect& GameplayEffect = GameplayEffects[i];
+		const FAV_AnimNotifyGameplayEffectPayload& GameplayEffect = GameplayEffects[i];
 		
 		checkf(GameplayEffect.Class, TEXT("%s::%hs: GameplayEffectClass at index: %d uninitialized"), *GetClass()->GetName(), __FUNCTION__, i);
 		
@@ -59,7 +60,7 @@ EDataValidationResult UAV_AnimNotify_ApplyGameplayEffects::IsDataValid(FDataVali
 
 	for (int i = 0; i < GameplayEffects.Num(); ++i)
 	{
-		const FAV_AnimNotify_ApplyGameplayEffects_GameplayEffect& GameplayEffect = GameplayEffects[i];
+		const FAV_AnimNotifyGameplayEffectPayload& GameplayEffect = GameplayEffects[i];
 		
 		if (GameplayEffect.Class == nullptr)
 		{

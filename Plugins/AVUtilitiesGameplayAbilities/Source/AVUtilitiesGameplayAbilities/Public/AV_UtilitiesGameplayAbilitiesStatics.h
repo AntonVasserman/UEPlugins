@@ -4,7 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "CollisionShape.h"
-// #include "Containers/Array.h"
+#include "GameplayEffect.h"
 #include "Engine/EngineTypes.h"
 #include "Kismet/BlueprintFunctionLibrary.h"
 
@@ -12,6 +12,31 @@
 
 struct FHitResult;
 class USkeletalMeshComponent;
+
+/**
+ *	Data used by the anim notify to execute gameplay effects.
+ */
+USTRUCT()
+struct FAV_AnimNotifyGameplayEffectPayload
+{
+	GENERATED_BODY()
+	
+	// Gameplay effect to apply.
+	UPROPERTY(EditDefaultsOnly, Category = "")
+	TSubclassOf<UGameplayEffect> Class = nullptr;
+
+	// Level of the gameplay effect to apply.
+	UPROPERTY(EditDefaultsOnly, Category = "")
+	int32 Level = 1;
+	
+	// Indicates that the effect uses magnitude calculation with set by caller values
+	UPROPERTY(EditAnywhere, Category = "", Meta = (EditCondition = "Class != nullptr", EditConditionHides))
+	bool bSetByCallerMagnitudeCalculation = false;
+	
+	// Magnitudes set by caller for the magnitude calculation
+	UPROPERTY(EditAnywhere, Category = "", Meta = (EditCondition = "bSetByCallerMagnitudeCalculation == true", EditConditionHides))
+	TMap<FGameplayTag, float> SetByCallerMagnitudes;
+};
 
 UENUM(BlueprintType)
 enum class EAV_CollisionShapeType : uint8

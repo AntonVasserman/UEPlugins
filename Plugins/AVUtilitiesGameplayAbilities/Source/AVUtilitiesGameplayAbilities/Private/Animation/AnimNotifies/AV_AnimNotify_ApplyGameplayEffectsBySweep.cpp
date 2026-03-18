@@ -1,7 +1,7 @@
 ﻿// Copyright Anton Vasserman, All Rights Reserved.
 
 
-#include "Animation/AnimNotifies/AV_AnimNotify_ApplyGameplayEffectBySweep.h"
+#include "Animation/AnimNotifies/AV_AnimNotify_ApplyGameplayEffectsBySweep.h"
 
 #include "AbilitySystemBlueprintLibrary.h"
 #include "AbilitySystemComponent.h"
@@ -16,7 +16,7 @@
 
 //~ UAnimNotify
 
-void UDEPRECATED_AV_AnimNotify_ApplyGameplayEffectBySweep::ApplyEffect(AActor* Owner, TArray<FHitResult> Hits)
+void UAV_AnimNotify_ApplyGameplayEffectsBySweep::ApplyEffects(AActor* Owner, TArray<FHitResult> Hits)
 {
 	// If we can't find the Ability Component we won't throw, we will just not apply the effect
 	UAbilitySystemComponent* AbilitySystem = UAbilitySystemBlueprintLibrary::GetAbilitySystemComponent(Owner);
@@ -26,31 +26,34 @@ void UDEPRECATED_AV_AnimNotify_ApplyGameplayEffectBySweep::ApplyEffect(AActor* O
 		return;
 	};
 	
-	checkf(GameplayEffectClass, TEXT("%s::%hs: GameplayEffectClass uninitialized"), *GetClass()->GetName(), __FUNCTION__);
+	for (const FAV_AnimNotifyGameplayEffectPayload& GameplayEffect : GameplayEffects)
+	{
+		checkf(GameplayEffect.Class, TEXT("%s::%hs: GameplayEffectClass uninitialized"), *GetClass()->GetName(), __FUNCTION__);
 
-	const FGameplayEffectContextHandle ContextHandle = AbilitySystem->MakeEffectContext();
-	const FGameplayEffectSpecHandle SpecHandle = AbilitySystem->MakeOutgoingSpec(GameplayEffectClass, GameplayEffectLevel, ContextHandle);
+		const FGameplayEffectContextHandle ContextHandle = AbilitySystem->MakeEffectContext();
+		const FGameplayEffectSpecHandle SpecHandle = AbilitySystem->MakeOutgoingSpec(GameplayEffect.Class, GameplayEffect.Level, ContextHandle);
 	
-	if (bSetByCallerMagnitudeCalculation)
-	{
-		for (const TTuple<FGameplayTag, float>& SetByCallerMagnitude : SetByCallerMagnitudes)
+		if (GameplayEffect.bSetByCallerMagnitudeCalculation)
 		{
-			SpecHandle.Data->SetSetByCallerMagnitude(SetByCallerMagnitude.Key, SetByCallerMagnitude.Value);
+			for (const TTuple<FGameplayTag, float>& SetByCallerMagnitude : GameplayEffect.SetByCallerMagnitudes)
+			{
+				SpecHandle.Data->SetSetByCallerMagnitude(SetByCallerMagnitude.Key, SetByCallerMagnitude.Value);
+			}
 		}
-	}
 	
-	for (FHitResult Hit : Hits)
-	{
-		if (!IsValid(Hit.GetActor())) continue;
+		for (FHitResult Hit : Hits)
+		{
+			if (!IsValid(Hit.GetActor())) continue;
 		
-		UAbilitySystemComponent* TargetAbilitySystem = UAbilitySystemBlueprintLibrary::GetAbilitySystemComponent(Hit.GetActor());
-		if (!IsValid(TargetAbilitySystem)) continue;
+			UAbilitySystemComponent* TargetAbilitySystem = UAbilitySystemBlueprintLibrary::GetAbilitySystemComponent(Hit.GetActor());
+			if (!IsValid(TargetAbilitySystem)) continue;
 		
-		AbilitySystem->ApplyGameplayEffectSpecToTarget(*SpecHandle.Data.Get(), TargetAbilitySystem);
+			AbilitySystem->ApplyGameplayEffectSpecToTarget(*SpecHandle.Data.Get(), TargetAbilitySystem);
+		}
 	}
 }
 
-FString UDEPRECATED_AV_AnimNotify_ApplyGameplayEffectBySweep::GetNotifyName_Implementation() const
+FString UAV_AnimNotify_ApplyGameplayEffectsBySweep::GetNotifyName_Implementation() const
 {
 	const UEnum* ChannelEnum = StaticEnum<ECollisionChannel>();
 	const FString TraceString = ChannelEnum ? ChannelEnum->GetNameStringByValue(SweepParams.TraceChannel) : TEXT("UnknownTrace");
@@ -64,7 +67,7 @@ FString UDEPRECATED_AV_AnimNotify_ApplyGameplayEffectBySweep::GetNotifyName_Impl
 
 	const FString CollisionsJoined = CollisionStrings.Num() > 0 ? FString::Join(CollisionStrings, TEXT("|")) : TEXT("None");
 
-	FString Name = FString::Printf(TEXT("Apply Gameplay Effect by Trace: %s, with Collision: %s"), *TraceString, *CollisionsJoined);
+	FString Name = FString::Printf(TEXT("Apply %d Gameplay Effects by Trace: %s, with Collision: %s"), GameplayEffects.Num(), *TraceString, *CollisionsJoined);
 
 	// Keep it timeline-friendly
 	if (constexpr int32 MaxLen = 80;
@@ -76,7 +79,7 @@ FString UDEPRECATED_AV_AnimNotify_ApplyGameplayEffectBySweep::GetNotifyName_Impl
 	return Name;
 }
 
-void UDEPRECATED_AV_AnimNotify_ApplyGameplayEffectBySweep::Notify(USkeletalMeshComponent* MeshComp, UAnimSequenceBase* Animation, const FAnimNotifyEventReference& EventReference)
+void UAV_AnimNotify_ApplyGameplayEffectsBySweep::Notify(USkeletalMeshComponent* MeshComp, UAnimSequenceBase* Animation, const FAnimNotifyEventReference& EventReference)
 {
 	Super::Notify(MeshComp, Animation, EventReference);
 	
@@ -94,20 +97,25 @@ void UDEPRECATED_AV_AnimNotify_ApplyGameplayEffectBySweep::Notify(USkeletalMeshC
 		return;
 	}
 	
-	ApplyEffect(Owner, Hits);
+	ApplyEffects(Owner, Hits);
 }
 
 //~ UObject
 
 #if WITH_EDITOR
-EDataValidationResult UDEPRECATED_AV_AnimNotify_ApplyGameplayEffectBySweep::IsDataValid(FDataValidationContext& Context) const
+EDataValidationResult UAV_AnimNotify_ApplyGameplayEffectsBySweep::IsDataValid(FDataValidationContext& Context) const
 {
 	EDataValidationResult Result = Super::IsDataValid(Context);
 
-	if (GameplayEffectClass == nullptr)
+	for (int i = 0; i < GameplayEffects.Num(); ++i)
 	{
-		Context.AddError(FText::FromString(TEXT("GameplayEffectClass isn't set")));
-		Result = EDataValidationResult::Invalid;
+		const FAV_AnimNotifyGameplayEffectPayload& GameplayEffect = GameplayEffects[i];
+		
+		if (GameplayEffect.Class == nullptr)
+		{
+			Context.AddError(FText::FromString(TEXT("GameplayEffectClass isn't set")));
+			Result = EDataValidationResult::Invalid;
+		}
 	}
 	
 	return Result;

@@ -119,6 +119,13 @@ This is a plugin of a module that contains utilities and extensions for the Game
 <details>
   <summary>Change log</summary>
 
+- 0.12:
+  - Deprecated AnimNotify ApplyGameplayEffect
+  - Deprecated AnimNotify ApplyGameplayEffectBySweep
+  - Added AnimNotify ApplyGameplayEffectsBySweep (plural)
+  - Added AnimNotify SendGameplayEvents (plural)
+  - Added AnimNotify SendGameplayEventsBySweep (plural)
+  - Deprecated AnimNotify SendGameplayEventToActor
 - 0.11:
   - Added AnimNotify ApplyGameplayEffects (plural)
   - Deprecated AnimNotify ApplyGameplayEffect

@@ -1,7 +1,7 @@
 ﻿// Copyright Anton Vasserman, All Rights Reserved.
 
 
-#include "Animation/AnimNotifies/AV_AnimNotify_SendGameplayEventToActor.h"
+#include "Animation/AnimNotifies/AV_AnimNotify_SendGameplayEvents.h"
 
 #include "AbilitySystemBlueprintLibrary.h"
 #include "AbilitySystemComponent.h"
@@ -14,12 +14,12 @@
 
 //~ UAnimNotify
 
-FString UDEPRECATED_AV_AnimNotify_SendGameplayEventToActor::GetNotifyName_Implementation() const
+FString UAV_AnimNotify_SendGameplayEvents::GetNotifyName_Implementation() const
 {
-	return FString::Printf(TEXT("Send Gameplay Event to Actor with Tag: %s"), *EventTag.ToString());
+	return FString::Printf(TEXT("Send %d Gameplay Events to Actor (to Self)"), EventTags.Num());
 }
 
-void UDEPRECATED_AV_AnimNotify_SendGameplayEventToActor::Notify(USkeletalMeshComponent* MeshComp, UAnimSequenceBase* Animation, const FAnimNotifyEventReference& EventReference)
+void UAV_AnimNotify_SendGameplayEvents::Notify(USkeletalMeshComponent* MeshComp, UAnimSequenceBase* Animation, const FAnimNotifyEventReference& EventReference)
 {
 	Super::Notify(MeshComp, Animation, EventReference);
 	
@@ -37,20 +37,29 @@ void UDEPRECATED_AV_AnimNotify_SendGameplayEventToActor::Notify(USkeletalMeshCom
 	
 	FGameplayEventData Payload;
 	Payload.Instigator = AbilitySystemComponent->GetAvatarActor();
-	UAbilitySystemBlueprintLibrary::SendGameplayEventToActor(Actor, EventTag, Payload);
+	
+	for (const FGameplayTag& EventTag : EventTags)
+	{
+		UAbilitySystemBlueprintLibrary::SendGameplayEventToActor(Actor, EventTag, Payload);
+	}
 }
 
 //~ UObject
 
 #if WITH_EDITOR
-EDataValidationResult UDEPRECATED_AV_AnimNotify_SendGameplayEventToActor::IsDataValid(FDataValidationContext& Context) const
+EDataValidationResult UAV_AnimNotify_SendGameplayEvents::IsDataValid(FDataValidationContext& Context) const
 {
 	EDataValidationResult Result = Super::IsDataValid(Context);
 
-	if (EventTag == FGameplayTag::EmptyTag)
+	for (int i = 0; i < EventTags.Num(); ++i)
 	{
-		Context.AddError(FText::FromString(TEXT("GameplayTag can't be left Empty")));
-		Result = EDataValidationResult::Invalid;
+		const FGameplayTag EventTag = EventTags[i];
+		
+		if (EventTag == FGameplayTag::EmptyTag)
+		{
+			Context.AddError(FText::FromString(FString::Printf(TEXT("GameplayTag at index: '%d' can't be left Empty"), i)));
+			Result = EDataValidationResult::Invalid;
+		}
 	}
 	
 	return Result;

@@ -3,6 +3,7 @@
 
 #include "GameplayAbilities/Components/AV_ResourceComponent.h"
 
+#include "AVUtilitiesGameplayAbilities.h"
 #include "GameplayEffectTypes.h"
 #include "MVVMGameSubsystem.h"
 #include "Engine/GameInstance.h"
@@ -20,15 +21,21 @@ void UAV_ResourceComponent::InitializeWithAbilitySystem(UAbilitySystemComponent*
 {
 	const AActor* OwningActor = GetOwner();
 	check(OwningActor);
+	
 	checkf(AbilitySystemComponent == nullptr, TEXT("%hs: %s for owner %s has already been initialized with an ability system"), __FUNCTION__, *ResourceAttributeSet.GetClass()->GetName(), *OwningActor->GetName());
 	checkf(InAbilitySystemComponent != nullptr, TEXT("%hs: Cannot initialize %s for owner %s, with null input ability system!"), __FUNCTION__, *ResourceAttributeSet.GetClass()->GetName(), *OwningActor->GetName());
-	
 	AbilitySystemComponent = InAbilitySystemComponent;
+	
 	checkf(ResourceAttributeSetClass != nullptr, TEXT("%hs: Cannot initialize %s for owner %s, because ResourceAttributeSetClass is not set!"), __FUNCTION__, *ResourceAttributeSet.GetClass()->GetName(), *OwningActor->GetName());
 	ResourceAttributeSet = Cast<UAV_ResourceAttributeSet>(AbilitySystemComponent->GetAttributeSet(ResourceAttributeSetClass));
 	
-	checkf(ResourceAttributeSet != nullptr, TEXT("%hs: Cannot initialize %s for owner %s, with null ResourceAttributeSet on the ability system."), __FUNCTION__, *ResourceAttributeSet.GetClass()->GetName(), *OwningActor->GetName());
-
+	if (ResourceAttributeSet == nullptr)
+	{
+		AV_LOG_UTILSGAS_EXTENDED(Display, "OwningActor: '%s', doesn't have AttributeSet of type: '%s', creating one for it.", *OwningActor->GetFullName(), *ResourceAttributeSetClass->GetName());
+		AbilitySystemComponent->AddAttributeSetSubobject(NewObject<UAttributeSet>(AbilitySystemComponent, ResourceAttributeSetClass));
+		ResourceAttributeSet = Cast<UAV_ResourceAttributeSet>(AbilitySystemComponent->GetAttributeSet(ResourceAttributeSetClass));
+	}
+	
 	AbilitySystemComponent->AddLooseGameplayTag(ResourceGameplayTags.Full);
 	AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(ResourceAttributeSet->GetValueAttribute()).AddLambda(
 		[this](const FOnAttributeChangeData& Data)
