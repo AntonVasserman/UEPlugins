@@ -56,6 +56,9 @@ struct FAV_SweepParams
 	FName SocketName = NAME_None;
 	
 	UPROPERTY(EditAnywhere, Category = "")
+	FVector SocketOffset = FVector::ZeroVector;
+	
+	UPROPERTY(EditAnywhere, Category = "")
 	FVector SocketExtensionOffset = FVector::ZeroVector;
 	
 	UPROPERTY(EditAnywhere, Category = "")

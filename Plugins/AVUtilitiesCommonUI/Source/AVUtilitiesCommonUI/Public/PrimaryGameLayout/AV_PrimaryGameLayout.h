@@ -41,10 +41,10 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Primary Game Layout", Meta = (DisplayName = "Get Primary Game Layout", WorldContext = "WorldContextObject"))
 	static UE_API UAV_PrimaryGameLayout* GetPrimaryGameLayoutForPrimaryPlayer(const UObject* WorldContextObject);
 	
-	UFUNCTION(BlueprintCallable, Meta = (DisplayName = "Get Primary Game Layout (Player Controller)"))
+	UFUNCTION(BlueprintCallable, Category = "Primary Game Layout", Meta = (DisplayName = "Get Primary Game Layout (Player Controller)"))
 	static UE_API UAV_PrimaryGameLayout* GetPrimaryGameLayoutForPlayerController(APlayerController* PlayerController);
 	
-	UFUNCTION(BlueprintCallable, Meta = (DisplayName = "Get Primary Game Layout (Local Player)"))
+	UFUNCTION(BlueprintCallable, Category = "Primary Game Layout", Meta = (DisplayName = "Get Primary Game Layout (Local Player)"))
 	static UE_API UAV_PrimaryGameLayout* GetPrimaryGameLayoutForLocalPlayer(ULocalPlayer* LocalPlayer);
 	
 	UE_API UAV_PrimaryGameLayout(const FObjectInitializer& ObjectInitializer);

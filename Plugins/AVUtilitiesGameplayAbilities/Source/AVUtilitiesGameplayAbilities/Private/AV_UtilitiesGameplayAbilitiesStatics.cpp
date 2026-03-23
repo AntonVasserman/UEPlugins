@@ -26,8 +26,8 @@ TArray<FHitResult> UAV_UtilitiesGameplayAbilitiesStatics::PerformSweep(AActor* O
 	}
 
 	const FTransform SocketTransform = MeshComp->GetSocketTransform(SweepParams.SocketName);
-	const FVector Start = SocketTransform.TransformPosition(SweepParams.SocketExtensionOffset);
-	const FVector End = Start;
+	const FVector Start = SocketTransform.TransformPosition(SweepParams.SocketOffset);
+	const FVector End = Start + SweepParams.SocketExtensionOffset;
 	
 	FCollisionShape CollisionShape;
 	switch (SweepParams.CollisionShapeType)
