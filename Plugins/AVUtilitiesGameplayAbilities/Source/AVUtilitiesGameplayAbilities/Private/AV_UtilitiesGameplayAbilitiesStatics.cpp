@@ -22,12 +22,11 @@ TArray<FHitResult> UAV_UtilitiesGameplayAbilitiesStatics::PerformSweep(AActor* O
 	const UWorld* World = GEngine->GetWorldFromContextObject(Owner, EGetWorldErrorMode::LogAndReturnNull);
 	if (IsValid(World) == false)
 	{
-		return Hits;	
+		return Hits;
 	}
-
-	const FTransform SocketTransform = MeshComp->GetSocketTransform(SweepParams.SocketName);
-	const FVector Start = SocketTransform.TransformPosition(SweepParams.SocketOffset);
-	const FVector End = Start + SweepParams.SocketExtensionOffset;
+	
+	const FVector Start = MeshComp->GetSocketTransform(SweepParams.SocketName).TransformPosition(SweepParams.SocketOffset);
+	const FVector End = SweepParams.bAssignEndSocket ? MeshComp->GetSocketTransform(SweepParams.EndSocketName).TransformPosition(SweepParams.EndSocketOffset) : Start;
 	
 	FCollisionShape CollisionShape;
 	switch (SweepParams.CollisionShapeType)

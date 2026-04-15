@@ -59,7 +59,13 @@ struct FAV_SweepParams
 	FVector SocketOffset = FVector::ZeroVector;
 	
 	UPROPERTY(EditAnywhere, Category = "")
-	FVector SocketExtensionOffset = FVector::ZeroVector;
+	bool bAssignEndSocket = false;
+	
+	UPROPERTY(EditAnywhere, Category = "", Meta = (EditCondition = "bAssignEndSocket", EditConditionHides))
+	FName EndSocketName = NAME_None;
+	
+	UPROPERTY(EditAnywhere, Category = "", Meta = (EditCondition = "bAssignEndSocket", EditConditionHides))
+	FVector EndSocketOffset = FVector::ZeroVector;
 	
 	UPROPERTY(EditAnywhere, Category = "")
 	TEnumAsByte<ECollisionChannel> TraceChannel = ECC_Visibility;

@@ -128,6 +128,8 @@ This is a plugin of a module that contains utilities and extensions for the Game
 <details>
   <summary>Change log</summary>
 
+- 0.14:
+  - Extended Sweeping capabilities for sweeping AnimNotifies
 - 0.13:
   - Deleted Deprecated Classes
 - 0.12:

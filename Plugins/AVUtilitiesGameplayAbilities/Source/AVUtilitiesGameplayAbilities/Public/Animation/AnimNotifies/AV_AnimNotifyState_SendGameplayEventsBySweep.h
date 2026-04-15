@@ -25,6 +25,10 @@ private:
 	UPROPERTY(EditAnywhere, Category = "Config|AnimNotify|Event")
 	FGameplayTag GameplayEventTagForHitActor;
 	
+	/**
+	 * Determines whether a gameplay event should be sent only once per-actor hit during the sweep.
+	 * This prevents redundant gameplay event notifications for multiple hits with the same actor within a single execution.
+	 */
 	UPROPERTY(EditAnywhere, Category = "Config|AnimNotify|Event")
 	bool bSingleEventPerHitActor = false;
 	
