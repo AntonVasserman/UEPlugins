@@ -60,6 +60,12 @@ This is a plugin of a module that contains all my shared code that will be used 
 <details>
   <summary>Change log</summary>
 
+- 0.16: 
+  - Added new Math Library functions:
+    - GetDirectionVector
+    - GetDisplacementVector
+  - Added Math Macros Library with new macros:
+    - Compare Distance
 - 0.15: Added MathLibrary and AnimNotify_SimulatePhysics
 - 0.14: Removed usage of non cross-platform \_\_FUNCTIONW\_\_ macro
 - 0.13: Added KismetFunctionLibrary with Extended Print String functions
